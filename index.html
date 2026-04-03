@@ -199,21 +199,63 @@
       <div style="margin-bottom:28px;">
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-              <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px;">My patient has</span>
-              <span style="font-size:16px; font-weight:700; color:var(--sky); letter-spacing:-0.3px;">NY Medicaid</span>
+            <div style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;">My patient has insurance provided by</div>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+              <button id="ins-medicaid" onclick="setInsurance('medicaid')" style="width:100%; background:var(--sky); color:white; border:none; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; transition:all 0.15s;">NY Medicaid</button>
+              <button id="ins-dualeligible" onclick="setInsurance('dualeligible')" style="width:100%; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; transition:all 0.15s;">NY Medicare / Medicaid</button>
+              <button id="ins-employer" onclick="setInsurance('employer')" style="width:100%; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; transition:all 0.15s;">An Employer</button>
             </div>
+            <div id="ins-coming-soon" style="display:none; background:rgba(255,255,255,0.06); border-radius:8px; padding:10px 12px; margin-top:4px;">
+              <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.5);">🚧 Coming soon</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:3px;">Guidance for this insurance type is in development. This tool currently covers NY Medicaid only.</div>
+            </div>
+            <div id="ins-medicaid-detail" style="display:block;">
+              <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;">How to confirm — Medicaid ID format</div>
+            <div style="margin-bottom:6px;">
             <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:8px; padding:10px 12px;">
-              <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;">How to confirm</div>
               <div style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:6px;">The NY Medicaid ID has a unique format: <span style="font-family:monospace; font-size:14px; color:var(--sky); font-weight:700; letter-spacing:1px;">AA12345A</span><br>Two letters · five numbers · one letter</div>
-              <div style="font-size:12px; color:rgba(255,255,255,0.5); line-height:1.6;">Plans like <strong style="color:rgba(255,255,255,0.65);">Healthfirst</strong>, <strong style="color:rgba(255,255,255,0.65);">Fidelis</strong>, <strong style="color:rgba(255,255,255,0.65);">Affinity by Molina</strong>, <strong style="color:rgba(255,255,255,0.65);">WellCare</strong>, <strong style="color:rgba(255,255,255,0.65);">MetroPlus</strong>, and <strong style="color:rgba(255,255,255,0.65);">Affinity</strong> may be NY Medicaid — check the ID format to confirm.</div>
-            </div>
+              <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NY Medicaid Plans covered by NYRx</div>
+              <div style="display:flex; flex-direction:column; gap:0;">
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Affinity by Molina</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Affinity by Molina Health Plan Medicaid Managed Care</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Amidacare</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Amidacare Live Life Plus (Medicaid HIV SNP)</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Anthem BCBS</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Anthem BCBS Health Plus Medicaid Managed Care · Anthem BCBS Health Plus Blue Priority</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Emblem / HIP</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Emblem HIP Medicaid Managed Care Enhanced Care</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Fidelis</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Fidelis Care Medicaid Managed Care</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Healthfirst</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Healthfirst Medicaid Managed Care</div>
+                </div>
+                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Straight Medicaid</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Medicaid of New York (Fee for Service)</div>
+                </div>
+                <div style="padding:7px 0;">
+                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">VNS Health</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">VNS Health VNS Select Health (HIV SNP)</div>
+                </div>
+              </div>
+            </div><!-- end ins-medicaid-detail -->
           </div>
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
             <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px;">The prescription is for</span>
             <span style="font-size:16px; font-weight:700; color:var(--sky); letter-spacing:-0.3px;">Wegovy</span>
           </div>
-          <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
+          <div id="dm-row" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
             <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px;">Patient has diabetes</span>
             <div style="display:flex; gap:8px; align-items:center;">
               <button id="dm-no" onclick="setDiabetes(false)" style="background:var(--sky); color:white; border:none; border-radius:8px; padding:6px 14px; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.15s;">No</button>
@@ -230,7 +272,25 @@
 </div>
 
 <!-- DIABETES REDIRECT -->
-<div id="screen-red-diabetes" class="screen">
+
+
+<!-- STICKY HEADER -->
+<div id="app-header" class="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-name">Andrea's Auths</div>
+      <div class="brand-sub">NY Medicaid · Wegovy PA</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label" id="progress-label">Step 1 of 6</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="main-app" class="main">
+
+  <div id="screen-red-diabetes" class="screen">
   <div class="screen-band" style="background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%);">
     <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.25); color:white;">⚠️ Consider a Better Path</div>
     <div class="screen-question" style="color:white;">Wegovy approval is unlikely for a diabetic patient on Medicaid.</div>
@@ -267,21 +327,8 @@
   </div>
 </div>
 
-<!-- STICKY HEADER -->
-<div id="app-header" class="app-header">
-  <div class="header-inner">
-    <div class="brand">
-      <div class="brand-name">Andrea's Auths</div>
-      <div class="brand-sub">NY Medicaid · Wegovy PA</div>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-label" id="progress-label">Step 1 of 6</div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
-    </div>
-  </div>
-</div>
+  
 
-<div id="main-app" class="main">
 
   <!-- NEW OR CONTINUATION -->
   <div id="screen-new-or-cont" class="screen">
@@ -1159,7 +1206,41 @@
 <script>
   let context = {};
   let history = [];
+  let patientInsurance = 'medicaid';
   let patientHasDiabetes = false;
+
+  function setInsurance(val) {
+    patientInsurance = val;
+    const ids = ['medicaid', 'dualeligible', 'employer'];
+    ids.forEach(id => {
+      const btn = document.getElementById('ins-' + id);
+      if (!btn) return;
+      if (id === val) {
+        btn.style.background = 'var(--sky)';
+        btn.style.color = 'white';
+        btn.style.border = 'none';
+      } else {
+        btn.style.background = 'rgba(255,255,255,0.1)';
+        btn.style.color = 'rgba(255,255,255,0.5)';
+        btn.style.border = '1px solid rgba(255,255,255,0.15)';
+      }
+    });
+    // Show/hide Medicaid plan detail
+    const detail = document.getElementById('ins-medicaid-detail');
+    if (detail) detail.style.display = val === 'medicaid' ? 'block' : 'none';
+    // Show/hide coming soon message
+    const comingSoon = document.getElementById('ins-coming-soon');
+    if (comingSoon) comingSoon.style.display = val !== 'medicaid' ? 'block' : 'none';
+    // Grey out Start button for non-medicaid
+    const startBtn = document.querySelector('.start-btn');
+    if (startBtn) {
+      startBtn.style.opacity = val === 'medicaid' ? '1' : '0.35';
+      startBtn.style.pointerEvents = val === 'medicaid' ? 'auto' : 'none';
+    }
+    // Show/hide diabetes toggle (only relevant for Medicaid)
+    const dmRow = document.getElementById('dm-row');
+    if (dmRow) dmRow.style.display = val === 'medicaid' ? 'flex' : 'none';
+  }
 
   const screenProgress = {
     'screen-new-or-cont': [1,6], 'screen-bmi': [2,6],
@@ -1219,6 +1300,7 @@
   }
 
   function handleStart() {
+    if (patientInsurance !== 'medicaid') return;
     if (patientHasDiabetes) { showHeader(); goTo('screen-red-diabetes'); }
     else { goTo('screen-new-or-cont'); }
   }
@@ -1228,6 +1310,7 @@
   function restart() {
     context = {}; history = [];
     patientHasDiabetes = false; setDiabetes(false);
+    patientInsurance = 'medicaid'; setInsurance('medicaid'); const sb = document.querySelector('.start-btn'); if(sb){sb.style.opacity='1';sb.style.pointerEvents='auto';}
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-start').classList.add('active');
     document.getElementById('app-header').style.display = 'none';
