@@ -249,9 +249,8 @@
                   <div style="font-size:11px; color:rgba(255,255,255,0.4);">VNS Health VNS Select Health (HIV SNP)</div>
                 </div>
               </div>
-            </div>
+            </div><!-- end ins-medicaid-detail -->
           </div>
-          </div><!-- end ins-medicaid-detail -->
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
             <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px;">The prescription is for</span>
             <span style="font-size:16px; font-weight:700; color:var(--sky); letter-spacing:-0.3px;">Wegovy</span>
@@ -1271,7 +1270,7 @@
   function goTo(id) {
     const current = getCurrentScreenId();
     if (current && current !== id) history.push(current);
-    if (id === 'screen-new-or-cont' || id === 'screen-red-diabetes') showHeader();
+    showHeader();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
     if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
