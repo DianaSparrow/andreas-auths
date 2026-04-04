@@ -33,8 +33,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body { font-family: 'DM Sans', sans-serif; background: var(--navy); min-height: 100vh; color: var(--gray-800); overflow-x: hidden; }
 
-  /* HEADER */
-  .app-header { background: var(--navy); padding: 20px 20px 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); display:none; }
+  /* HEADER — hidden until needed */
+  #app-header { background: var(--navy); padding: 20px 20px 16px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); display: none; }
   .header-inner { display: flex; align-items: center; justify-content: space-between; }
   .brand-name { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); letter-spacing: -0.3px; line-height: 1; }
   .brand-sub { font-size: 11px; color: var(--sky); font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 3px; }
@@ -43,19 +43,25 @@
   .progress-bar { width: 80px; height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--sky); border-radius: 2px; transition: width 0.4s ease; }
 
-  /* MAIN */
-  .main { padding: 0 0 40px; max-width: 480px; margin: 0 auto; display:none; }
-  .screen { display: none; animation: fadeUp 0.3s ease forwards; }
+  /* ALL SCREENS hidden by default; only .active shows */
+  .screen { display: none; max-width: 480px; margin: 0 auto; animation: fadeUp 0.3s ease forwards; }
   .screen.active { display: block; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* SCREEN BAND */
+  /* START SCREEN */
+  .start-screen { min-height: 100vh; display: flex; flex-direction: column; }
+  .start-hero { padding: 48px 24px 36px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .start-title { font-family: 'DM Serif Display', serif; font-size: 38px; color: var(--white); line-height: 1.1; letter-spacing: -1px; margin-bottom: 28px; }
+  .start-title em { color: var(--sky); font-style: italic; }
+  .start-btn { width: 100%; background: var(--sky); color: var(--white); border: none; border-radius: var(--radius); padding: 20px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: 'DM Serif Display', serif; letter-spacing: -0.3px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 32px rgba(59,154,225,0.4); transition: all 0.18s ease; }
+  .start-btn:active { transform: scale(0.98); box-shadow: none; }
+  .start-footer { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.6; }
+
+  /* INNER SCREENS */
   .screen-band { background: var(--navy); padding: 20px 20px 24px; }
   .step-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(59,154,225,0.15); border: 1px solid rgba(59,154,225,0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: var(--sky); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
   .screen-question { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); line-height: 1.3; letter-spacing: -0.3px; }
   .screen-hint { font-size: 13px; color: var(--gray-400); margin-top: 8px; line-height: 1.5; }
-
-  /* CARD AREA */
   .card-area { background: var(--gray-50); min-height: calc(100vh - 140px); border-radius: 24px 24px 0 0; padding: 20px 16px 32px; }
 
   /* ANSWER BUTTONS */
@@ -92,13 +98,27 @@
   .status-box.blue .status-title { color: var(--blue); }
   .status-text { font-size: 13px; line-height: 1.6; color: var(--gray-600); }
 
-  /* SECTION LABEL */
+  /* MISC */
   .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray-400); margin: 20px 0 10px; }
-
-  /* INFO CARD */
   .info-card { background: var(--white); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1.5px solid var(--gray-200); }
   .info-card-title { font-weight: 700; font-size: 13px; color: var(--blue); margin-bottom: 4px; }
   .info-card-body { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 8px; color: var(--gray-600); font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 14px; font-family: 'DM Sans', sans-serif; margin-bottom: 16px; box-shadow: var(--shadow); transition: all 0.15s ease; }
+  .back-btn:active { opacity: 0.7; transform: scale(0.97); }
+  .restart-btn { width: 100%; background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--gray-600); font-family: 'DM Sans', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: all 0.18s ease; }
+  .restart-btn:active { transform: scale(0.98); }
+  .decision-divider { margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
+  .decision-divider-line { flex: 1; height: 1.5px; background: var(--gray-200); }
+  .decision-divider-label { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  .continuation-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .disclaimer { font-size: 11px; color: var(--gray-400); text-align: center; padding: 12px 16px; line-height: 1.6; margin-top: 8px; }
+  .contact-card { background: var(--white); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1.5px solid var(--gray-200); }
+  .contact-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-label { font-size: 12px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact-value { font-size: 15px; font-weight: 700; color: var(--blue); }
+  .form-link-btn { width: 100%; background: var(--blue); color: var(--white); border: none; border-radius: var(--radius); padding: 16px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-family: 'DM Sans', sans-serif; text-decoration: none; box-shadow: var(--shadow); transition: all 0.18s ease; }
+  .form-link-btn:active { transform: scale(0.98); opacity: 0.9; }
 
   /* EXPANDABLE */
   .expand-trigger { width: 100%; background: var(--white); border: 2px solid var(--sky-light); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.18s ease; box-shadow: var(--shadow); }
@@ -110,24 +130,11 @@
   .expand-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
   .expand-chevron { color: var(--sky); font-size: 14px; transition: transform 0.25s ease; flex-shrink: 0; }
   .expand-trigger.open .expand-chevron { transform: rotate(180deg); }
-  .expand-trigger.open {
-    border-bottom-color: transparent;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-bottom: 0;
-  }
-  .expand-content.open {
-    border-top: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    margin-top: 0;
-    margin-bottom: 8px;
-  }
-  .expand-content { display: none; background: var(--white); border: 2px solid var(--sky-light); border-top: none; border-radius: 0 0 var(--radius) var(--radius); margin-top: -10px; margin-bottom: 8px; padding: 12px 14px 14px; }
-  .expand-content.open { display: block; }
+  .expand-trigger.open { border-bottom-color: transparent; border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; }
+  .expand-content { display: none; background: var(--white); border: 2px solid var(--sky-light); border-top: none; border-radius: 0 0 var(--radius) var(--radius); margin-bottom: 8px; padding: 12px 14px 14px; }
+  .expand-content.open { display: block; border-top-left-radius: 0; border-top-right-radius: 0; margin-top: 0; }
 
   /* MED TABLE */
-  .icd-badge { display: inline-block; background: var(--red-light); border: 1px solid #FECACA; color: var(--red); font-size: 11px; font-weight: 700; border-radius: 6px; padding: 3px 8px; margin-bottom: 10px; }
   .med-table { width: 100%; border-collapse: collapse; font-size: 12px; }
   .med-table th { background: var(--blue); color: var(--white); padding: 8px 10px; text-align: left; font-weight: 600; font-size: 11px; }
   .med-table th:first-child { border-radius: 6px 0 0 0; }
@@ -138,60 +145,28 @@
   .med-table td:first-child { font-weight: 500; }
   .med-table td:last-child { color: var(--gray-600); font-size: 11px; }
   .med-warn { background: var(--amber-light); border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--amber); font-weight: 500; margin-top: 10px; display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; }
-
-  /* BACK BUTTON */
-  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 8px; color: var(--gray-600); font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 14px; font-family: 'DM Sans', sans-serif; margin-bottom: 16px; box-shadow: var(--shadow); transition: all 0.15s ease; }
-  .back-btn:active { opacity: 0.7; transform: scale(0.97); }
-
-  /* SUBMISSION */
-  .contact-card { background: var(--white); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1.5px solid var(--gray-200); }
-  .contact-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray-100); }
-  .contact-row:last-child { border-bottom: none; }
-  .contact-label { font-size: 12px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-  .contact-value { font-size: 15px; font-weight: 700; color: var(--blue); }
-  .form-link-btn { width: 100%; background: var(--blue); color: var(--white); border: none; border-radius: var(--radius); padding: 16px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-family: 'DM Sans', sans-serif; text-decoration: none; box-shadow: var(--shadow); transition: all 0.18s ease; }
-  .form-link-btn:active { transform: scale(0.98); opacity: 0.9; }
-
-  /* CHECKLIST */
-  .checklist-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--gray-100); align-items: flex-start; }
-  .checklist-item:last-child { border-bottom: none; }
-  .check-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--green-light); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
-  .check-text { font-size: 13px; color: var(--gray-800); line-height: 1.5; }
-  .check-text strong { font-weight: 600; }
-  .check-text em { color: var(--blue); font-style: normal; font-weight: 500; }
-
-  /* EXAMPLE BOX */
-  .example-box { background: var(--white); border: 1.5px solid var(--gray-200); border-left: 4px solid var(--sky); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow); }
-  .example-title { font-weight: 700; font-size: 13px; color: var(--blue); margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; }
-  .example-body { font-size: 12px; color: var(--gray-600); line-height: 1.7; font-style: italic; }
-
-  /* START SCREEN */
-  .start-screen { background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; }
-  .start-hero { padding: 48px 24px 36px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .start-title { font-family: 'DM Serif Display', serif; font-size: 38px; color: var(--white); line-height: 1.1; letter-spacing: -1px; margin-bottom: 28px; }
-  .start-title em { color: var(--sky); font-style: italic; }
-  .start-btn { width: 100%; background: var(--sky); color: var(--white); border: none; border-radius: var(--radius); padding: 20px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: 'DM Serif Display', serif; letter-spacing: -0.3px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 32px rgba(59,154,225,0.4); transition: all 0.18s ease; }
-  .start-btn:active { transform: scale(0.98); box-shadow: none; }
-  .start-footer { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.6; }
-
-  /* RESTART */
-  .restart-btn { width: 100%; background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--gray-600); font-family: 'DM Sans', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; transition: all 0.18s ease; }
-  .restart-btn:active { transform: scale(0.98); }
-
-  /* DIVIDER */
-  .decision-divider { margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
-  .decision-divider-line { flex: 1; height: 1.5px; background: var(--gray-200); }
-  .decision-divider-label { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-
-  /* CONTINUATION */
-  .continuation-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
-
-  .disclaimer { font-size: 11px; color: var(--gray-400); text-align: center; padding: 12px 16px; line-height: 1.6; margin-top: 8px; }
 </style>
 </head>
 <body>
 
-<!-- START SCREEN -->
+<!-- STICKY HEADER -->
+<div id="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-name">Andrea's Auths</div>
+      <div class="brand-sub">NY Medicaid · Wegovy PA</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label" id="progress-label">Step 1 of 6</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALL SCREENS — flat, same level, same container -->
+<div id="all-screens">
+
+<!-- START -->
 <div id="screen-start" class="screen active">
   <div class="start-screen">
     <div class="start-hero">
@@ -205,51 +180,27 @@
               <button id="ins-dualeligible" onclick="setInsurance('dualeligible')" style="width:100%; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; transition:all 0.15s;">NY Medicare / Medicaid</button>
               <button id="ins-employer" onclick="setInsurance('employer')" style="width:100%; background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; transition:all 0.15s;">An Employer</button>
             </div>
-            <div id="ins-coming-soon" style="display:none; background:rgba(255,255,255,0.06); border-radius:8px; padding:10px 12px; margin-top:4px;">
+            <div id="ins-coming-soon" style="display:none; background:rgba(255,255,255,0.06); border-radius:8px; padding:10px 12px; margin-bottom:8px;">
               <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.5);">🚧 Coming soon</div>
               <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:3px;">Guidance for this insurance type is in development. This tool currently covers NY Medicaid only.</div>
             </div>
-            <div id="ins-medicaid-detail" style="display:block;">
+            <div id="ins-medicaid-detail">
               <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:6px;">How to confirm — Medicaid ID format</div>
-            <div style="margin-bottom:6px;">
-            <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:8px; padding:10px 12px;">
-              <div style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:6px;">The NY Medicaid ID has a unique format: <span style="font-family:monospace; font-size:14px; color:var(--sky); font-weight:700; letter-spacing:1px;">AA12345A</span><br>Two letters · five numbers · one letter</div>
-              <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NY Medicaid Plans covered by NYRx</div>
-              <div style="display:flex; flex-direction:column; gap:0;">
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Affinity by Molina</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Affinity by Molina Health Plan Medicaid Managed Care</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Amidacare</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Amidacare Live Life Plus (Medicaid HIV SNP)</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Anthem BCBS</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Anthem BCBS Health Plus Medicaid Managed Care · Anthem BCBS Health Plus Blue Priority</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Emblem / HIP</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Emblem HIP Medicaid Managed Care Enhanced Care</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Fidelis</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Fidelis Care Medicaid Managed Care</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Healthfirst</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Healthfirst Medicaid Managed Care</div>
-                </div>
-                <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Straight Medicaid</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">Medicaid of New York (Fee for Service)</div>
-                </div>
-                <div style="padding:7px 0;">
-                  <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">VNS Health</div>
-                  <div style="font-size:11px; color:rgba(255,255,255,0.4);">VNS Health VNS Select Health (HIV SNP)</div>
+              <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10); border-radius:8px; padding:10px 12px;">
+                <div style="font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:8px;">The NY Medicaid ID has a unique format: <span style="font-family:monospace; font-size:14px; color:var(--sky); font-weight:700; letter-spacing:1px;">AA12345A</span><br>Two letters · five numbers · one letter</div>
+                <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NY Medicaid Plans covered by NYRx</div>
+                <div style="display:flex; flex-direction:column; gap:0;">
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Affinity by Molina</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Affinity by Molina Health Plan Medicaid Managed Care</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Amidacare</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Amidacare Live Life Plus (Medicaid HIV SNP)</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Anthem BCBS</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Anthem BCBS Health Plus Medicaid Managed Care · Anthem BCBS Health Plus Blue Priority</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Emblem / HIP</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Emblem HIP Medicaid Managed Care Enhanced Care</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Fidelis</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Fidelis Care Medicaid Managed Care</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Healthfirst</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Healthfirst Medicaid Managed Care</div></div>
+                  <div style="padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.07);"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">Straight Medicaid</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">Medicaid of New York (Fee for Service)</div></div>
+                  <div style="padding:7px 0;"><div style="font-size:12px; font-weight:700; color:rgba(255,255,255,0.75);">VNS Health</div><div style="font-size:11px; color:rgba(255,255,255,0.4);">VNS Health VNS Select Health (HIV SNP)</div></div>
                 </div>
               </div>
-            </div><!-- end ins-medicaid-detail -->
+            </div>
           </div>
           <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between;">
             <span style="font-size:12px; font-weight:600; color:rgba(255,255,255,0.45); text-transform:uppercase; letter-spacing:0.8px;">The prescription is for</span>
@@ -272,25 +223,7 @@
 </div>
 
 <!-- DIABETES REDIRECT -->
-
-
-<!-- STICKY HEADER -->
-<div id="app-header" class="app-header">
-  <div class="header-inner">
-    <div class="brand">
-      <div class="brand-name">Andrea's Auths</div>
-      <div class="brand-sub">NY Medicaid · Wegovy PA</div>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-label" id="progress-label">Step 1 of 6</div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
-    </div>
-  </div>
-</div>
-
-<div id="main-app" class="main">
-
-  <div id="screen-red-diabetes" class="screen">
+<div id="screen-red-diabetes" class="screen">
   <div class="screen-band" style="background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%);">
     <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.25); color:white;">⚠️ Consider a Better Path</div>
     <div class="screen-question" style="color:white;">Wegovy approval is unlikely for a diabetic patient on Medicaid.</div>
@@ -298,1024 +231,722 @@
   </div>
   <div class="card-area">
     <button class="back-btn" onclick="goBack()">‹ Back</button>
-    <div class="status-box red">
-      <div class="status-icon">🔴</div>
-      <div class="status-content">
-        <div class="status-title">Do not submit Wegovy for this patient</div>
-        <div class="status-text">NY Medicaid does not cover Wegovy as a weight loss medication for patients with Type 2 diabetes. A submission is very likely to be denied.</div>
-      </div>
-    </div>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit Wegovy for this patient</div><div class="status-text">NY Medicaid does not cover Wegovy as a weight loss medication for patients with Type 2 diabetes. A submission is very likely to be denied.</div></div></div>
     <div class="section-label">Consider prescribing one of these instead</div>
     <div style="background:var(--white); border:1.5px solid var(--gray-200); border-radius:var(--radius); padding:16px; margin-bottom:12px; box-shadow:var(--shadow);">
-      <div style="font-size:13px; color:var(--gray-600); line-height:1.6; margin-bottom:14px;">For patients with Type 2 diabetes on NY Medicaid, approval is much more likely if the Rx is written for a GLP-1 or dual agonist under the <strong style="color:var(--gray-800);">diabetes indication</strong> rather than the obesity indication.</div>
+      <div style="font-size:13px; color:var(--gray-600); line-height:1.6; margin-bottom:14px;">For patients with Type 2 diabetes on NY Medicaid, approval is much more likely if the Rx is written for a GLP-1 or dual agonist under the <strong style="color:var(--gray-800);">diabetes indication</strong>.</div>
       <div style="display:flex; flex-direction:column; gap:10px;">
-        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;">
-          <div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Mounjaro (tirzepatide)</div>
-          <div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Dual GIP/GLP-1 agonist approved for Type 2 diabetes. Same molecule as Zepbound but covered under the diabetes indication — significantly easier to approve on Medicaid.</div>
-        </div>
-        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;">
-          <div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Victoza (liraglutide)</div>
-          <div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Diabetes-indication version of liraglutide, covered under NY Medicaid for Type 2 diabetes patients. Note: Saxenda is the obesity indication and much harder to approve.</div>
-        </div>
-        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;">
-          <div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Ozempic (semaglutide)</div>
-          <div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Diabetes-indication version of semaglutide — same molecule as Wegovy — and significantly more likely to be approved on NY Medicaid for a Type 2 diabetes patient.</div>
-        </div>
+        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;"><div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Mounjaro (tirzepatide)</div><div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Dual GIP/GLP-1 agonist approved for Type 2 diabetes. Same molecule as Zepbound but covered under the diabetes indication — significantly easier to approve on Medicaid.</div></div>
+        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;"><div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Victoza (liraglutide)</div><div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Diabetes-indication version of liraglutide. Note: Saxenda is the obesity indication and much harder to approve.</div></div>
+        <div style="background:var(--green-light); border:1.5px solid #A7F3D0; border-radius:10px; padding:12px 14px;"><div style="font-size:13px; font-weight:700; color:var(--green); margin-bottom:3px;">Ozempic (semaglutide)</div><div style="font-size:12px; color:var(--gray-600); line-height:1.5;">Diabetes-indication version of semaglutide — same molecule as Wegovy — significantly more likely to be approved on NY Medicaid for a Type 2 diabetes patient.</div></div>
       </div>
     </div>
     <button class="restart-btn" onclick="restart()">↩ Start Over</button>
   </div>
 </div>
 
-  
+<!-- NEW OR CONTINUATION -->
+<div id="screen-new-or-cont" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 1</div>
+    <div class="screen-question">Is this a new Wegovy prescription or a continuation?</div>
+    <div class="screen-hint">Check the medical record for any prior Wegovy fill history under this or any previous insurer.</div>
+  </div>
+  <div class="card-area">
+    <button class="answer-btn green" onclick="goTo('screen-bmi')">
+      <div class="btn-badge green">🆕</div>
+      <div class="btn-content"><div class="btn-label">New prescription</div><div class="btn-sub">Patient has not used Wegovy before</div></div>
+      <div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn" onclick="goTo('screen-cont-lapse')">
+      <div class="btn-badge default">🔄</div>
+      <div class="btn-content"><div class="btn-label">Continuation of therapy</div><div class="btn-sub">Patient has previously used Wegovy under NYRx or another insurer</div></div>
+      <div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
 
+<!-- BMI -->
+<div id="screen-bmi" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 2</div>
+    <div class="screen-question">What is the patient's BMI?</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-cvd-standard')">
+      <div class="btn-badge green">✓</div>
+      <div class="btn-content"><div class="btn-label">40 or above</div></div>
+      <div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-cvd-strict')">
+      <div class="btn-badge amber">⚠️</div>
+      <div class="btn-content"><div class="btn-label">30 to 39.9</div></div>
+      <div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn red" onclick="goTo('screen-red-bmi')">
+      <div class="btn-badge red">📉</div>
+      <div class="btn-content"><div class="btn-label">Below 30</div></div>
+      <div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
 
-  <!-- NEW OR CONTINUATION -->
-  <div id="screen-new-or-cont" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 1</div>
-      <div class="screen-question">Is this a new Wegovy prescription or a continuation?</div>
-      <div class="screen-hint">Check the medical record for any prior Wegovy fill history under this or any previous insurer.</div>
+<!-- BMI RED -->
+<div id="screen-red-bmi" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div><div class="screen-hint">BMI below 30 does not meet NYRx minimum criteria.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx requires a minimum BMI of 30 for Wegovy coverage. This request will be denied.</div></div></div>
+    <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- CVD STRICT (BMI 30-39.9) -->
+<div id="screen-cvd-strict" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 3</div>
+    <div class="screen-question">Does the patient have a history of heart attack, stroke, or symptomatic peripheral vascular disease (PVD)?</div>
+    <div class="screen-hint">For BMI 30–39.9, NYRx requires this stronger cardiovascular history. Hypertension and hyperlipidemia alone are not sufficient.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="expand-trigger" id="trig-strict" onclick="expandTable('strict')">
+      <div class="expand-trigger-left"><div class="expand-icon-wrap">🔍</div><div><div class="expand-title">Search the medical record</div><div class="expand-sub">Tap to view search guide</div></div></div>
+      <div class="expand-chevron">▾</div>
+    </button>
+    <div class="expand-content" id="exp-strict">
+      <div style="font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:6px;">Search Problem List for:</div>
+      <div style="font-size:12px; color:var(--gray-600); line-height:1.8; margin-bottom:10px;">myocardial infarction · heart attack · MI · stroke · CVA · cerebrovascular accident · peripheral vascular disease · PVD · peripheral arterial disease · PAD · symptomatic PAD</div>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:8px 0 4px;">Oral Anticoagulants (NYRx PDL)</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>dabigatran capsule</td><td></td></tr><tr><td>apixaban</td><td>Eliquis®</td></tr><tr><td>warfarin</td><td></td></tr><tr><td>rivaroxaban tablet</td><td>Xarelto®</td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:8px 0 4px;">Injectable Anticoagulants (NYRx PDL)</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>enoxaparin sodium</td><td></td></tr><tr><td>dalteparin</td><td>Fragmin® vial</td></tr></table>
+      <div class="med-warn">⚠️ Check the medication start date — must show at least 6 months of active use.</div>
     </div>
-    <div class="card-area">
-      <button class="answer-btn green" onclick="goTo('screen-bmi')">
-        <div class="btn-badge green">🆕</div>
-        <div class="btn-content"><div class="btn-label">New prescription</div><div class="btn-sub">Patient has not used Wegovy before</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn" onclick="goTo('screen-cont-lapse')">
-        <div class="btn-badge default">🔄</div>
-        <div class="btn-content"><div class="btn-label">Continuation of therapy</div><div class="btn-sub">Patient has previously used Wegovy under NYRx or another insurer</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
+    <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">Found a match? Answer below</div><div class="decision-divider-line"></div></div>
+    <button class="answer-btn green" onclick="setContext('cvd','strict'); goTo('screen-lifestyle')" style="border-width:2.5px;">
+      <div class="btn-badge green">✓</div><div class="btn-content"><div class="btn-label">Yes — confirmed in chart</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn red" onclick="goTo('screen-red-cvd-strict')" style="border-width:2.5px;">
+      <div class="btn-badge red">✗</div><div class="btn-content"><div class="btn-label">No — not found in chart</div></div><div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
+
+<!-- CVD STRICT RED -->
+<div id="screen-red-cvd-strict" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div><div class="screen-hint">BMI 30–39.9 without qualifying cardiovascular history does not meet criteria.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">For BMI 30–39.9, NYRx requires a documented history of heart attack (MI), stroke, or symptomatic peripheral vascular disease (PVD). Hypertension, hyperlipidemia, OSA, and prediabetes alone are not sufficient at this BMI.</div></div></div>
+    <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- CVD STANDARD (BMI 40+) -->
+<div id="screen-cvd-standard" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 3</div>
+    <div class="screen-question">Does the patient have cardiovascular disease (CVD) treated with medication for at least 6 months?</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div style="display:flex; gap:10px; margin-bottom:16px;">
+      <button onclick="setContext('cvd','standard'); goTo('screen-lifestyle')" style="flex:1; background:var(--green-light); border:2px solid #A7F3D0; border-radius:var(--radius); padding:16px 12px; font-size:14px; font-weight:700; color:var(--green); cursor:pointer; font-family:'DM Sans',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px;">✓ Yes</button>
+      <button onclick="goTo('screen-red-cvd-standard')" style="flex:1; background:var(--red-light); border:2px solid #FECACA; border-radius:var(--radius); padding:16px 12px; font-size:14px; font-weight:700; color:var(--red); cursor:pointer; font-family:'DM Sans',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px;">✗ No</button>
+    </div>
+    <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">NOT SURE? CHECK FOR THESE MEDS</div><div class="decision-divider-line"></div></div>
+    <div class="expand-trigger" id="trig-htn" onclick="expandTable('htn')">
+      <div class="expand-trigger-left"><div class="expand-icon-wrap">💊</div><div><div class="expand-title">Hypertension meds</div><div class="expand-sub">ACEIs · ARBs · Beta blockers · CCBs</div></div></div>
+      <div class="expand-chevron">▾</div>
+    </div>
+    <div class="expand-content" id="exp-htn">
+      <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Cardiovascular Medications</div>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ACE Inhibitors (ACEIs)</div>
+      <table class="med-table"><tr><th>Generic</th><th></th></tr><tr><td>benazepril</td><td></td></tr><tr><td>enalapril</td><td></td></tr><tr><td>lisinopril</td><td></td></tr><tr><td>ramipril</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ACEI Combinations</div>
+      <table class="med-table"><tr><th>Generic</th><th></th></tr><tr><td>benazepril/amlodipine</td><td></td></tr><tr><td>benazepril/HCTZ</td><td></td></tr><tr><td>captopril/HCTZ</td><td></td></tr><tr><td>enalapril/HCTZ</td><td></td></tr><tr><td>lisinopril/HCTZ</td><td></td></tr><tr><td>trandolapril/verapamil ER</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Angiotensin Receptor Blockers (ARBs)</div>
+      <table class="med-table"><tr><th>Generic</th><th></th></tr><tr><td>irbesartan</td><td></td></tr><tr><td>losartan</td><td></td></tr><tr><td>olmesartan</td><td></td></tr><tr><td>telmisartan</td><td></td></tr><tr><td>valsartan tablet</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ARB Combinations</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>irbesartan/HCTZ</td><td></td></tr><tr><td>losartan/HCTZ</td><td></td></tr><tr><td>olmesartan/amlodipine</td><td></td></tr><tr><td>olmesartan/HCTZ</td><td></td></tr><tr><td>sacubitril/valsartan</td><td>gen Entresto®</td></tr><tr><td>telmisartan/HCTZ</td><td></td></tr><tr><td>valsartan/amlodipine</td><td></td></tr><tr><td>valsartan/amlodipine/HCTZ</td><td>Exforge HCT®</td></tr><tr><td>valsartan/HCTZ</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Beta Blockers</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>atenolol</td><td></td></tr><tr><td>carvedilol</td><td></td></tr><tr><td>labetalol</td><td></td></tr><tr><td>metoprolol succinate XL</td><td></td></tr><tr><td>metoprolol tartrate</td><td></td></tr><tr><td>propranolol tablet</td><td></td></tr><tr><td>propranolol ER</td><td></td></tr><tr><td>propranolol solution</td><td>Hemangeol®</td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Beta Blocker / Diuretic Combinations</div>
+      <table class="med-table"><tr><th>Generic</th><th></th></tr><tr><td>atenolol/chlorthalidone</td><td></td></tr><tr><td>bisoprolol/HCTZ</td><td></td></tr><tr><td>metoprolol tartrate/HCTZ</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Calcium Channel Blockers</div>
+      <table class="med-table"><tr><th>Generic</th><th></th></tr><tr><td>amlodipine</td><td></td></tr><tr><td>felodipine ER</td><td></td></tr><tr><td>isradipine</td><td></td></tr><tr><td>nicardipine HCl</td><td></td></tr><tr><td>nifedipine</td><td></td></tr><tr><td>nifedipine ER/SA</td><td></td></tr></table>
+      <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
+    </div>
+    <div class="expand-trigger" id="trig-lipid" onclick="expandTable('lipid')">
+      <div class="expand-trigger-left"><div class="expand-icon-wrap">💊</div><div><div class="expand-title">Cholesterol / Lipid / Triglyceride meds</div><div class="expand-sub">Statins · Absorption inhibitors · Fibrates</div></div></div>
+      <div class="expand-chevron">▾</div>
+    </div>
+    <div class="expand-content" id="exp-lipid">
+      <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Lipid Medications</div>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Statins (HMG-CoA Reductase Inhibitors)</div>
+      <table class="med-table"><tr><th>Generic</th><th>Notes</th></tr><tr><td>atorvastatin</td><td></td></tr><tr><td>lovastatin</td><td></td></tr><tr><td>pravastatin</td><td></td></tr><tr><td>rosuvastatin</td><td></td></tr><tr><td>simvastatin</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Cholesterol Absorption Inhibitors</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>cholestyramine</td><td></td></tr><tr><td>cholestyramine light</td><td></td></tr><tr><td>colestipol tablet</td><td>Colestid® tablet</td></tr><tr><td>ezetimibe</td><td></td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Triglyceride-Lowering Agents</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>fenofibrate tablet</td><td>gen Tricor®</td></tr><tr><td>fenofibrate capsule/tablet</td><td>gen Lofibra®</td></tr><tr><td>fenofibric acid capsule</td><td>gen Trilipix®</td></tr><tr><td>gemfibrozil</td><td></td></tr><tr><td>icosapent ethyl</td><td>Vascepa®</td></tr><tr><td>omega-3-acid ethyl esters</td><td>gen Lovaza®</td></tr></table>
+      <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
+    </div>
+    <div class="expand-trigger" id="trig-cvd" onclick="expandTable('cvd')">
+      <div class="expand-trigger-left"><div class="expand-icon-wrap">❤️</div><div><div class="expand-title">Heart attack / Stroke / PVD meds</div><div class="expand-sub">Anticoagulants</div></div></div>
+      <div class="expand-chevron">▾</div>
+    </div>
+    <div class="expand-content" id="exp-cvd">
+      <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Anticoagulants</div>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Anticoagulants — Oral</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>dabigatran capsule</td><td></td></tr><tr><td>apixaban</td><td>Eliquis®</td></tr><tr><td>warfarin</td><td></td></tr><tr><td>rivaroxaban tablet</td><td>Xarelto®</td></tr></table>
+      <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Anticoagulants — Injectable</div>
+      <table class="med-table"><tr><th>Generic</th><th>Brand</th></tr><tr><td>enoxaparin sodium</td><td></td></tr><tr><td>dalteparin</td><td>Fragmin® vial</td></tr></table>
+      <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
     </div>
   </div>
+</div>
 
-  <!-- BMI -->
-  <div id="screen-bmi" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 2</div>
-      <div class="screen-question">What is the patient's BMI?</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-cvd-standard')">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">40 or above</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-cvd-strict')">
-        <div class="btn-badge amber">⚠️</div>
-        <div class="btn-content"><div class="btn-label">30 to 39.9</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn red" onclick="goTo('screen-red-bmi')">
-        <div class="btn-badge red">📉</div>
-        <div class="btn-content"><div class="btn-label">Below 30</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
+<!-- CVD STANDARD RED -->
+<div id="screen-red-cvd-standard" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div><div class="screen-hint">Cardiovascular disease criteria not met or medication not yet at 6 months.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">NYRx requires documented cardiovascular disease treated with medication for at least 6 months. OSA and prediabetes alone are not sufficient. If the qualifying medication was recently started, resubmit once 6 months of treatment is documented.</div></div></div>
+    <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
   </div>
+</div>
 
-  <!-- BMI RED -->
-  <div id="screen-red-bmi" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Result</div>
-      <div class="screen-question">Likely Denial</div>
-      <div class="screen-hint">BMI below 30 does not meet NYRx minimum criteria.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx requires a minimum BMI of 30 for Wegovy coverage. This request will be denied.</div></div></div>
-      <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
+<!-- LIFESTYLE Q3 -->
+<div id="screen-lifestyle" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 4</div>
+    <div class="screen-question">Can the prescriber attest to 6 months of lifestyle modification prior to starting Wegovy?</div>
+    <div class="screen-hint">All three must be documented: behavioral modification, reduced calorie diet, and increased physical activity.</div>
   </div>
-
-  <!-- CVD STRICT (BMI 30-39.9) -->
-  <div id="screen-cvd-strict" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 3</div>
-      <div class="screen-question">Does the patient have a history of heart attack, stroke, or symptomatic peripheral vascular disease (PVD)?</div>
-      <div class="screen-hint">For BMI 30–39.9, NYRx requires this stronger cardiovascular history. Hypertension and hyperlipidemia alone are not sufficient.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="expand-trigger" id="trig-strict" onclick="expandTable('strict')">
-        <div class="expand-trigger-left">
-          <div class="expand-icon-wrap">🔍</div>
-          <div><div class="expand-title">Search the medical record</div><div class="expand-sub">Tap to view search guide</div></div>
-        </div>
-        <div class="expand-chevron">▾</div>
-      </button>
-      <div class="expand-content" id="exp-strict">
-        <div style="font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:6px;">Search Problem List for:</div>
-        <div style="font-size:12px; color:var(--gray-600); line-height:1.8; margin-bottom:10px;">myocardial infarction · heart attack · MI · stroke · CVA · cerebrovascular accident · peripheral vascular disease · PVD · peripheral arterial disease · PAD · symptomatic PAD</div>
-        <div style="font-size:12px; font-weight:600; color:var(--gray-600); margin-bottom:6px;">Search Medication List for (NYRx PDL anticoagulants):</div>
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:8px 0 4px;">Oral Anticoagulants</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>dabigatran capsule</td><td></td></tr>
-          <tr><td>apixaban</td><td>Eliquis®</td></tr>
-          <tr><td>warfarin</td><td></td></tr>
-          <tr><td>rivaroxaban tablet</td><td>Xarelto®</td></tr>
-        </table>
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:8px 0 4px;">Injectable Anticoagulants</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>enoxaparin sodium</td><td></td></tr>
-          <tr><td>dalteparin</td><td>Fragmin® vial</td></tr>
-        </table>
-        <div class="med-warn">⚠️ Check the medication start date — must show at least 6 months of active use.</div>
-      </div>
-      <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">Found a match? Answer below</div><div class="decision-divider-line"></div></div>
-      <button class="answer-btn green" onclick="setContext('cvd','strict'); goTo('screen-lifestyle')" style="border-width:2.5px; box-shadow:0 4px 16px rgba(13,122,78,0.15);">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">Yes — confirmed in chart</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn red" onclick="goTo('screen-red-cvd-strict')" style="border-width:2.5px; box-shadow:0 4px 16px rgba(185,28,28,0.12);">
-        <div class="btn-badge red">✗</div>
-        <div class="btn-content"><div class="btn-label">No — not found in chart</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- CVD STRICT RED -->
-  <div id="screen-red-cvd-strict" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Result</div>
-      <div class="screen-question">Likely Denial</div>
-      <div class="screen-hint">BMI 30–39.9 without qualifying cardiovascular history does not meet criteria.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">For BMI 30–39.9, NYRx requires a documented history of heart attack (MI), stroke, or symptomatic peripheral vascular disease (PVD). Hypertension, hyperlipidemia, OSA, and prediabetes alone are not sufficient at this BMI.</div></div></div>
-      <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
-  </div>
-
-  <!-- CVD STANDARD (BMI 40+) -->
-  <div id="screen-cvd-standard" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 3</div>
-      <div class="screen-question">Does the patient have cardiovascular disease (CVD) treated with medication for at least 6 months?</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div style="display:flex; gap:10px; margin-bottom:16px;">
-        <button onclick="setContext('cvd','standard'); goTo('screen-lifestyle')" style="flex:1; background:var(--green-light); border:2px solid #A7F3D0; border-radius:var(--radius); padding:16px 12px; font-size:14px; font-weight:700; color:var(--green); cursor:pointer; font-family:'DM Sans',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(13,122,78,0.15);">✓ Yes</button>
-        <button onclick="goTo('screen-red-cvd-standard')" style="flex:1; background:var(--red-light); border:2px solid #FECACA; border-radius:var(--radius); padding:16px 12px; font-size:14px; font-weight:700; color:var(--red); cursor:pointer; font-family:'DM Sans',sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 16px rgba(185,28,28,0.12);">✗ No</button>
-      </div>
-      <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">NOT SURE? CHECK FOR THESE MEDS</div><div class="decision-divider-line"></div></div>
-      <div class="expand-trigger" id="trig-htn" onclick="expandTable('htn')">
-        <div class="expand-trigger-left"><div class="expand-icon-wrap">💊</div><div><div class="expand-title">Hypertension meds</div>
-</div></div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="expand-content" id="exp-htn">
-        <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Cardiovascular Medications</div>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ACE Inhibitors (ACEIs)</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th></th></tr>
-          <tr><td>benazepril</td><td></td></tr>
-          <tr><td>enalapril</td><td></td></tr>
-          <tr><td>lisinopril</td><td></td></tr>
-          <tr><td>ramipril</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ACEI Combinations</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th></th></tr>
-          <tr><td>benazepril/amlodipine</td><td></td></tr>
-          <tr><td>benazepril/HCTZ</td><td></td></tr>
-          <tr><td>captopril/HCTZ</td><td></td></tr>
-          <tr><td>enalapril/HCTZ</td><td></td></tr>
-          <tr><td>lisinopril/HCTZ</td><td></td></tr>
-          <tr><td>trandolapril/verapamil ER</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Angiotensin Receptor Blockers (ARBs)</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th></th></tr>
-          <tr><td>irbesartan</td><td></td></tr>
-          <tr><td>losartan</td><td></td></tr>
-          <tr><td>olmesartan</td><td></td></tr>
-          <tr><td>telmisartan</td><td></td></tr>
-          <tr><td>valsartan tablet</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">ARB Combinations</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>irbesartan/HCTZ</td><td></td></tr>
-          <tr><td>losartan/HCTZ</td><td></td></tr>
-          <tr><td>olmesartan/amlodipine</td><td></td></tr>
-          <tr><td>olmesartan/HCTZ</td><td></td></tr>
-          <tr><td>sacubitril/valsartan</td><td>gen Entresto®</td></tr>
-          <tr><td>telmisartan/HCTZ</td><td></td></tr>
-          <tr><td>valsartan/amlodipine</td><td></td></tr>
-          <tr><td>valsartan/amlodipine/HCTZ</td><td>Exforge HCT®</td></tr>
-          <tr><td>valsartan/HCTZ</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Beta Blockers</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>atenolol</td><td></td></tr>
-          <tr><td>carvedilol</td><td></td></tr>
-          <tr><td>labetalol</td><td></td></tr>
-          <tr><td>metoprolol succinate XL</td><td></td></tr>
-          <tr><td>metoprolol tartrate</td><td></td></tr>
-          <tr><td>propranolol tablet</td><td></td></tr>
-          <tr><td>propranolol ER</td><td></td></tr>
-          <tr><td>propranolol solution</td><td>Hemangeol®</td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Beta Blocker / Diuretic Combinations</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th></th></tr>
-          <tr><td>atenolol/chlorthalidone</td><td></td></tr>
-          <tr><td>bisoprolol/HCTZ</td><td></td></tr>
-          <tr><td>metoprolol tartrate/HCTZ</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Calcium Channel Blockers</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th></th></tr>
-          <tr><td>amlodipine</td><td></td></tr>
-          <tr><td>felodipine ER</td><td></td></tr>
-          <tr><td>isradipine</td><td></td></tr>
-          <tr><td>nicardipine HCl</td><td></td></tr>
-          <tr><td>nifedipine</td><td></td></tr>
-          <tr><td>nifedipine ER/SA</td><td></td></tr>
-        </table>
-        <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
-      </div>
-
-
-
-      <div class="expand-trigger" id="trig-lipid" onclick="expandTable('lipid')">
-        <div class="expand-trigger-left"><div class="expand-icon-wrap">💊</div><div><div class="expand-title">Cholesterol / Lipid / Triglyceride meds</div>
-</div></div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="expand-content" id="exp-lipid">
-        <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Lipid / Cholesterol / Triglyceride Medications</div>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Statins (HMG-CoA Reductase Inhibitors)</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Notes</th></tr>
-          <tr><td>atorvastatin</td><td></td></tr>
-          <tr><td>lovastatin</td><td></td></tr>
-          <tr><td>pravastatin</td><td></td></tr>
-          <tr><td>rosuvastatin</td><td></td></tr>
-          <tr><td>simvastatin</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Cholesterol Absorption Inhibitors</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>cholestyramine</td><td></td></tr>
-          <tr><td>cholestyramine light</td><td></td></tr>
-          <tr><td>colestipol tablet</td><td>Colestid® tablet</td></tr>
-          <tr><td>ezetimibe</td><td></td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Triglyceride-Lowering Agents</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>fenofibrate tablet</td><td>gen Tricor®</td></tr>
-          <tr><td>fenofibrate capsule/tablet</td><td>gen Lofibra®</td></tr>
-          <tr><td>fenofibric acid capsule</td><td>gen Trilipix®</td></tr>
-          <tr><td>gemfibrozil</td><td></td></tr>
-          <tr><td>icosapent ethyl</td><td>Vascepa®</td></tr>
-          <tr><td>omega-3-acid ethyl esters</td><td>gen Lovaza®</td></tr>
-        </table>
-        <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
-      </div>
-
-
-      <div class="expand-trigger" id="trig-cvd" onclick="expandTable('cvd')">
-        <div class="expand-trigger-left"><div class="expand-icon-wrap">❤️</div><div><div class="expand-title">Heart attack / Stroke / PVD meds</div></div></div>
-        <div class="expand-chevron">▾</div>
-      </div>
-      <div class="expand-content" id="exp-cvd">
-        <div style="font-size:11px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">NYRx Preferred Drug List — Anticoagulant Medications</div>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Anticoagulants — Oral</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>dabigatran capsule</td><td></td></tr>
-          <tr><td>apixaban</td><td>Eliquis®</td></tr>
-          <tr><td>warfarin</td><td></td></tr>
-          <tr><td>rivaroxaban tablet</td><td>Xarelto®</td></tr>
-        </table>
-
-        <div style="font-size:12px; font-weight:700; color:var(--blue); margin:10px 0 4px;">Anticoagulants — Injectable</div>
-        <table class="med-table">
-          <tr><th>Generic</th><th>Brand</th></tr>
-          <tr><td>enoxaparin sodium</td><td></td></tr>
-          <tr><td>dalteparin</td><td>Fragmin® vial</td></tr>
-        </table>
-        <div class="med-warn">⚠️ Confirm medication start date shows 6+ months of active use before proceeding.</div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- CVD STANDARD RED -->
-  <div id="screen-red-cvd-standard" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Result</div>
-      <div class="screen-question">Likely Denial</div>
-      <div class="screen-hint">Cardiovascular disease (CVD) criteria not met or medication not yet at 6 months.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">NYRx requires documented cardiovascular disease treated with medication for at least 6 months. OSA and prediabetes alone are not sufficient. If the qualifying medication was recently started, resubmit once 6 months of treatment is documented.</div></div></div>
-      <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
-  </div>
-
-  <!-- LIFESTYLE Q3 -->
-  <div id="screen-lifestyle" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 4</div>
-      <div class="screen-question">Can the prescriber attest to 6 months of lifestyle modification prior to starting Wegovy?</div>
-      <div class="screen-hint">All three must be documented: behavioral modification, reduced calorie diet, and increased physical activity.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-lifestyle2')">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">Yes — all three documented, 6+ months</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-amber-lifestyle')">
-        <div class="btn-badge amber">~</div>
-        <div class="btn-content"><div class="btn-label">Partially documented or unclear</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn red" onclick="goTo('screen-red-lifestyle')">
-        <div class="btn-badge red">✗</div>
-        <div class="btn-content"><div class="btn-label">No — not documented</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">NOT SURE? CHECK VISIT NOTES FOR THESE PHRASES</div><div class="decision-divider-line"></div></div>
-      <div style="background:var(--white); border:2px solid var(--sky-light); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow);">
-        <div style="display:flex; flex-direction:column; gap:6px;">
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">dietary counseling</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">nutrition counseling</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">reduced calorie diet</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">exercise counseling</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">physical activity</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">behavioral modification</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">weight management counseling</div>
-          <div style="font-size:13px; color:var(--gray-600); padding:6px 0;">referral to dietitian or weight loss program</div>
-        </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-lifestyle2')">
+      <div class="btn-badge green">✓</div><div class="btn-content"><div class="btn-label">Yes — all three documented, 6+ months</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-amber-lifestyle')">
+      <div class="btn-badge amber">~</div><div class="btn-content"><div class="btn-label">Partially documented or unclear</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn red" onclick="goTo('screen-red-lifestyle')">
+      <div class="btn-badge red">✗</div><div class="btn-content"><div class="btn-label">No — not documented</div></div><div class="btn-arrow">›</div>
+    </button>
+    <div class="decision-divider"><div class="decision-divider-line"></div><div class="decision-divider-label">NOT SURE? CHECK VISIT NOTES FOR THESE PHRASES</div><div class="decision-divider-line"></div></div>
+    <div style="background:var(--white); border:2px solid var(--sky-light); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow);">
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">dietary counseling</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">nutrition counseling</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">reduced calorie diet</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">exercise counseling</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">physical activity</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">behavioral modification</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0; border-bottom:1px solid var(--gray-100);">weight management counseling</div>
+        <div style="font-size:13px; color:var(--gray-600); padding:6px 0;">referral to dietitian or weight loss program</div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- AMBER LIFESTYLE -->
-  <div id="screen-amber-lifestyle" class="screen">
-    <div class="screen-band"><div class="step-pill">Action Needed</div><div class="screen-question">Prescriber documentation needed before submitting.</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">Ask the prescriber to add a chart note confirming all three lifestyle modification components have been in place for at least 6 months. Partial or missing documentation is a common denial reason. Return to this tool once the note is added.</div></div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
+<!-- AMBER LIFESTYLE -->
+<div id="screen-amber-lifestyle" class="screen">
+  <div class="screen-band"><div class="step-pill">Action Needed</div><div class="screen-question">Prescriber documentation needed before submitting.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">Ask the prescriber to add a chart note confirming all three lifestyle modification components have been in place for at least 6 months. Partial or missing documentation is a common denial reason.</div></div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
   </div>
+</div>
 
-  <!-- RED LIFESTYLE -->
-  <div id="screen-red-lifestyle" class="screen">
-    <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx requires documented comprehensive lifestyle modification for at least 6 months prior to initiating Wegovy. Discuss with the prescriber whether documentation exists elsewhere or whether the patient needs to complete the 6-month requirement before resubmitting.</div></div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
+<!-- RED LIFESTYLE -->
+<div id="screen-red-lifestyle" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx requires documented comprehensive lifestyle modification for at least 6 months prior to initiating Wegovy. Discuss with the prescriber whether documentation exists elsewhere or whether the patient needs to complete the 6-month requirement before resubmitting.</div></div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
   </div>
+</div>
 
-  <!-- LIFESTYLE Q4 -->
-  <div id="screen-lifestyle2" class="screen">
-    <div class="screen-band">
-      <div class="step-pill">Step 5</div>
-      <div class="screen-question">Does the prescriber attest that the patient will continue lifestyle modifications going forward?</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-green-submit')">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">Yes</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-amber-lifestyle2')">
-        <div class="btn-badge amber">?</div>
-        <div class="btn-content"><div class="btn-label">Unsure / prescriber unavailable</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn red" onclick="goTo('screen-red-lifestyle2')">
-        <div class="btn-badge red">✗</div>
-        <div class="btn-content"><div class="btn-label">No</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
+<!-- LIFESTYLE Q4 -->
+<div id="screen-lifestyle2" class="screen">
+  <div class="screen-band">
+    <div class="step-pill">Step 5</div>
+    <div class="screen-question">Does the prescriber attest that the patient will continue lifestyle modifications going forward?</div>
   </div>
-
-  <!-- AMBER LIFESTYLE2 -->
-  <div id="screen-amber-lifestyle2" class="screen">
-    <div class="screen-band"><div class="step-pill">Action Needed</div><div class="screen-question">Follow up with prescriber before submitting.</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">This attestation cannot be left blank on the NYRx Wegovy form. A missing or No response will result in denial. Follow up with the prescriber and return once confirmed.</div></div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-green-submit')">
+      <div class="btn-badge green">✓</div><div class="btn-content"><div class="btn-label">Yes</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-amber-lifestyle2')">
+      <div class="btn-badge amber">?</div><div class="btn-content"><div class="btn-label">Unsure / prescriber unavailable</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn red" onclick="goTo('screen-red-lifestyle2')">
+      <div class="btn-badge red">✗</div><div class="btn-content"><div class="btn-label">No</div></div><div class="btn-arrow">›</div>
+    </button>
   </div>
+</div>
 
-  <!-- RED LIFESTYLE2 -->
-  <div id="screen-red-lifestyle2" class="screen">
-    <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">The prescriber must attest that the patient will continue lifestyle modifications throughout treatment. This is a non-negotiable requirement on the NYRx Wegovy form.</div></div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
+<!-- AMBER LIFESTYLE2 -->
+<div id="screen-amber-lifestyle2" class="screen">
+  <div class="screen-band"><div class="step-pill">Action Needed</div><div class="screen-question">Follow up with prescriber before submitting.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Do not submit yet</div><div class="status-text">This attestation cannot be left blank on the NYRx Wegovy form. A missing or No response will result in denial. Follow up with the prescriber and return once confirmed.</div></div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
   </div>
+</div>
 
-  <!-- GREEN LIGHT: INITIATION -->
-  <!-- STEP 1 OF 3: GET THE FORM -->
-  <div id="screen-green-submit" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 1 of 3</div>
-      <div class="screen-question" style="color:white;">Get the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Download or email the blank NYRx Wegovy PA form.</div>
-    </div>
-    <div class="card-area">
-      <a href="https://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf" target="_blank" class="form-link-btn">📄 Download blank NYRx Wegovy PA form</a>
-      <div class="info-card">
-        <div class="info-card-title">📧 Email blank form</div>
-        <div class="info-card-body" style="margin-bottom:10px;">Send a link to the blank form to your work inbox or office email.</div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <input type="email" id="email-input-init" placeholder="your@office.com" style="flex:1; border:1.5px solid var(--gray-200); border-radius:8px; padding:10px 12px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--gray-800); outline:none;">
-          <button onclick="sendFormEmail('email-input-init')" style="background:var(--blue); color:white; border:none; border-radius:8px; padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap;">Send</button>
-        </div>
-        <div id="email-confirm-init" style="display:none; margin-top:8px; font-size:12px; color:var(--green); font-weight:600;">✓ Email client opened</div>
+<!-- RED LIFESTYLE2 -->
+<div id="screen-red-lifestyle2" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">The prescriber must attest that the patient will continue lifestyle modifications throughout treatment. This is a non-negotiable requirement on the NYRx Wegovy form.</div></div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- GREEN: STEP 1 GET THE FORM -->
+<div id="screen-green-submit" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 1 of 3</div>
+    <div class="screen-question" style="color:white;">Get the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Download or email the blank NYRx Wegovy PA form.</div>
+  </div>
+  <div class="card-area">
+    <a href="https://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf" target="_blank" class="form-link-btn">📄 Download blank NYRx Wegovy PA form</a>
+    <div class="info-card">
+      <div class="info-card-title">📧 Email a link to the blank form</div>
+      <div class="info-card-body" style="margin-bottom:10px;">Send a link to the blank form to your work inbox or office email.</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <input type="email" id="email-input-init" placeholder="your@office.com" style="flex:1; border:1.5px solid var(--gray-200); border-radius:8px; padding:10px 12px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--gray-800); outline:none;">
+        <button onclick="sendFormEmail('email-input-init','email-confirm-init')" style="background:var(--blue); color:white; border:none; border-radius:8px; padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap;">Send</button>
       </div>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Note on Magellan forms</div><div class="status-text">If your office has a form referencing Magellan Medicaid Administration — this is the same form. Magellan became Prime Therapeutics State Government Solutions in October 2024. Contact info unchanged.</div></div></div>
-      <button class="answer-btn green" onclick="goTo('screen-green-complete')" style="margin-top:8px;">
-        <div class="btn-badge green">→</div>
-        <div class="btn-content"><div class="btn-label">Next — Complete the form</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
+      <div id="email-confirm-init" style="display:none; margin-top:8px; font-size:12px; color:var(--green); font-weight:600;">✓ Email client opened</div>
     </div>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Note on Magellan forms</div><div class="status-text">If your office has a form referencing Magellan Medicaid Administration — this is the same form. Magellan became Prime Therapeutics State Government Solutions in October 2024. Contact info unchanged.</div></div></div>
+    <button class="answer-btn green" onclick="goTo('screen-green-complete')" style="margin-top:8px;">
+      <div class="btn-badge green">→</div><div class="btn-content"><div class="btn-label">Next — Complete the form</div></div><div class="btn-arrow">›</div>
+    </button>
   </div>
+</div>
 
-  <!-- STEP 2 OF 3: COMPLETE THE FORM -->
-  <div id="screen-green-complete" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 2 of 3</div>
-      <div class="screen-question" style="color:white;">Complete the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Fill in each section using the exact field names on the form.</div>
+<!-- GREEN: STEP 2 COMPLETE THE FORM -->
+<div id="screen-green-complete" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 2 of 3</div>
+    <div class="screen-question" style="color:white;">Complete the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Fill in each section using the exact field names on the form.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEMBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Last Name</span>From chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member First Name</span>From chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Medicaid ID (two letters, five numbers, one letter)</span>From Medicaid card — format: <strong>AA12345A</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Date of Birth (MM/DD/YYYY)</span>From chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Sex</span>Check Male, Female, or X</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Height / Weight / BMI (kg/m²)</span>From most recent visit note</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Allergies</span>From chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Is the member transitioning from a facility?</span>Check Yes or No</div>
+      </div>
     </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-
-      <!-- MEMBER INFORMATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEMBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Last Name</span>From chart</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member First Name</span>From chart</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Medicaid ID (two letters, five numbers, one letter)</span>From Medicaid card — format: <strong>AA12345A</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Date of Birth (MM/DD/YYYY)</span>From chart</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Sex</span>Check Male, Female, or X</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Height / Weight / BMI (kg/m²)</span>From most recent visit note</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Allergies</span>From chart</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Is the member transitioning from a facility?</span>Check Yes or No</div>
-        </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">PRESCRIBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Last Name / First Name</span>From prescriber's record</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber NPI / Specialty</span>From prescriber's record</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Street Address / City / State / Zip</span>From prescriber's record</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Phone / Fax</span>From prescriber's record</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber's Authorized Agent</span>Your name — you are submitting on the prescriber's behalf</div>
       </div>
-
-      <!-- PRESCRIBER INFORMATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">PRESCRIBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Last Name / First Name</span>From prescriber's record</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber NPI / Specialty</span>From prescriber's record</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Street Address / City / State / Zip</span>From prescriber's record</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber Phone / Fax</span>From prescriber's record</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber's Authorized Agent</span>Your name — you are submitting on the prescriber's behalf</div>
-        </div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEDICATION AND DISPENSING INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Name</span><strong>Wegovy</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Strength</span>Per Rx (starting dose: 0.25mg/0.5mL)</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Formulation</span><strong>pen injectors</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Dosing Frequency</span><strong>once weekly</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Quantity / Day Supply</span>Per Rx — typically <strong>2 mL / 4 pens · 30 day supply</strong></div>
       </div>
-
-      <!-- MEDICATION AND DISPENSING INFORMATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEDICATION AND DISPENSING INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Name</span><strong>Wegovy</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Strength</span>Per Rx (starting dose: 0.25mg/0.5mL)</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Formulation</span><strong>pen injectors</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Dosing Frequency</span><strong>once weekly</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Quantity / Day Supply</span>Per Rx — typically <strong>2 mL / 4 pens · 28–30 day supply</strong></div>
-        </div>
-      </div>
-
-      <!-- NEW OR CONTINUATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">NEW OR CONTINUATION?</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGES 1–2</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Select one</span>☑ <strong>New medication therapy</strong></div>
-        </div>
-      </div>
-
-      <!-- CLINICAL CRITERIA -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 2</span></div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">1. What diagnosis is this being prescribed for?</span>
-            <span style="font-size:11px; color:var(--gray-400); display:block; margin-bottom:8px;">Select the qualifying diagnosis from the patient's problem list and enter the corresponding ICD-10 code on the form.</span>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Hypertension</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I10</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Hyperlipidemia, unspecified</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.5</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Pure hypercholesterolemia (high cholesterol)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.00</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Pure hypertriglyceridemia (high triglycerides)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.1</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Mixed hyperlipidemia (high cholesterol + triglycerides)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.2</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Atherosclerotic heart disease / Coronary artery disease (CAD)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I25.10</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Atherosclerosis (general)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I70.90</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Old myocardial infarction (prior heart attack)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I25.2</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Sequelae of cerebral infarction (prior stroke)</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I69.30</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Peripheral vascular disease, unspecified</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I73.9</div>
-              </div>
-              <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;">
-                <div style="font-weight:700; font-size:12px; color:var(--gray-800);">Peripheral artery disease of extremities</div>
-                <div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I70.209</div>
-              </div>
-            </div>
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">2. Does the member have type 1 or type 2 diabetes mellitus?</span>
-            ☑ <strong>No</strong>
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">3. Does the member have established cardiovascular disease?</span>
-            ☑ <strong>Yes</strong> — provide the specific cardiovascular diagnosis from chart
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">4. Is the member using any other GLP-1 agonist therapy at this time?</span>
-            Check active medication list — answer Yes or No accordingly
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">NEW OR CONTINUATION?</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGES 1–2</span></div>
+      <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Select one</span>☑ <strong>New medication therapy</strong></div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 2</span></div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="font-size:12px; color:var(--gray-800);">
+          <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px;">1. What diagnosis is this being prescribed for?</span>
+          <span style="font-size:11px; color:var(--gray-400); display:block; margin-bottom:8px;">Select the qualifying diagnosis from the patient's problem list and enter the corresponding ICD-10 code on the form.</span>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Hypertension</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I10</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Hyperlipidemia, unspecified</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.5</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Pure hypercholesterolemia</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.00</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Pure hypertriglyceridemia</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.1</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Mixed hyperlipidemia</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">E78.2</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Atherosclerotic heart disease / CAD</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I25.10</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Atherosclerosis (general)</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I70.90</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Old myocardial infarction (prior heart attack)</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I25.2</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Sequelae of cerebral infarction (prior stroke)</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I69.30</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Peripheral vascular disease, unspecified</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I73.9</div></div>
+            <div style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:8px; padding:8px 10px;"><div style="font-weight:700; font-size:12px; color:var(--gray-800);">Peripheral artery disease of extremities</div><div style="font-size:11px; color:var(--blue); font-weight:600; margin-top:1px;">I70.209</div></div>
           </div>
         </div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">2. Does the member have type 1 or type 2 diabetes mellitus?</span>☑ <strong>No</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">3. Does the member have established cardiovascular disease?</span>☑ <strong>Yes</strong> — provide the specific cardiovascular diagnosis from chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">4. Is the member using any other GLP-1 agonist therapy at this time?</span>Check active medication list — answer Yes or No accordingly</div>
       </div>
-
-      <!-- CLINICAL CRITERIA: INITIATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA: INITIATION OF THERAPY</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 3</span></div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">5. What is the member's BMI at the initiation of therapy (kg/m²)?</span>
-            Enter BMI from chart
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">6. Is the member adherent to established prescribed cardiovascular disease (CVD) therapy (antihypertensive, lipid-lowering agent, and anti-thrombotic agent, or platelet aggregation inhibitor) for at least six months prior to initiating therapy?</span>
-            ☑ <strong>Yes</strong> — provide the current CVD therapy (medication name)
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">7. Does the prescriber attest that the member has participated in comprehensive lifestyle modifications that encourage behavioral modifications, a reduced calorie diet and increased physical activity starting at least six months prior to initiating therapy and with continued treatment?</span>
-            ☑ <strong>Yes</strong>
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">8. Does the prescriber attest that the member will continue comprehensive lifestyle modifications that encourage behavioral modifications, a reduced calorie diet and increased physical activity?</span>
-            ☑ <strong>Yes</strong>
-          </div>
-        </div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA: INITIATION OF THERAPY</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 3</span></div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">5. What is the member's BMI at the initiation of therapy (kg/m²)?</span>Enter BMI from chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">6. Is the member adherent to established prescribed cardiovascular disease (CVD) therapy (antihypertensive, lipid-lowering agent, and anti-thrombotic agent, or platelet aggregation inhibitor) for at least six months prior to initiating therapy?</span>☑ <strong>Yes</strong> — provide the current CVD therapy (medication name)</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">7. Does the prescriber attest that the member has participated in comprehensive lifestyle modifications that encourage behavioral modifications, a reduced calorie diet and increased physical activity starting at least six months prior to initiating therapy and with continued treatment?</span>☑ <strong>Yes</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">8. Does the prescriber attest that the member will continue comprehensive lifestyle modifications that encourage behavioral modifications, a reduced calorie diet and increased physical activity?</span>☑ <strong>Yes</strong></div>
       </div>
-
-      <div class="status-box amber"><div class="status-icon">📄</div><div class="status-content"><div class="status-title">Page 4 — Leave blank and submit</div><div class="status-text">Page 4 contains the Continuation of Therapy questions (9–11). For a new prescription, leave this page completely blank — but it must still be included and submitted with the rest of the form.</div></div></div>
-
-      <button class="answer-btn green" onclick="goTo('screen-green-send')" style="margin-top:16px;">
-        <div class="btn-badge green">→</div>
-        <div class="btn-content"><div class="btn-label">Next — Submit the form</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
     </div>
+    <div class="status-box amber"><div class="status-icon">📄</div><div class="status-content"><div class="status-title">Page 4 — Leave blank and submit</div><div class="status-text">Page 4 contains the Continuation of Therapy questions (9–11). For a new prescription, leave this page completely blank — but it must still be included and submitted with the rest of the form.</div></div></div>
+    <button class="answer-btn green" onclick="goTo('screen-green-send')" style="margin-top:8px;">
+      <div class="btn-badge green">→</div><div class="btn-content"><div class="btn-label">Next — Submit the form</div></div><div class="btn-arrow">›</div>
+    </button>
   </div>
+</div>
 
-  <!-- STEP 3 OF 3: SUBMIT -->
-  <div id="screen-green-send" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 3 of 3</div>
-      <div class="screen-question" style="color:white;">Submit the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Choose your submission method.</div>
+<!-- GREEN: STEP 3 SUBMIT -->
+<div id="screen-green-send" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 3 of 3</div>
+    <div class="screen-question" style="color:white;">Submit the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Choose your submission method.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="contact-card">
+      <div class="contact-row"><div class="contact-label">Fax to</div><div class="contact-value">1-800-268-2990</div></div>
+      <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value">1-877-309-9493</div></div>
+      <div class="contact-row"><div class="contact-label">Electronic</div><div class="contact-value" style="font-size:13px;">CoverMyMeds.com</div></div>
     </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="contact-card">
-        <div class="contact-row"><div class="contact-label">Fax to</div><div class="contact-value">1-800-268-2990</div></div>
-        <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value">1-877-309-9493</div></div>
-        <div class="contact-row"><div class="contact-label">Electronic</div><div class="contact-value" style="font-size:13px;">CoverMyMeds.com</div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start New PA Check</button>
+    <div class="disclaimer">NYRx criteria are subject to change. Always verify at newyork.fhsc.com before submitting.</div>
+  </div>
+</div>
+
+<!-- CONTINUATION PATH -->
+
+<!-- CONT: LAPSE -->
+<div id="screen-cont-lapse" class="screen">
+  <div class="screen-band">
+    <div class="continuation-badge">🔄 Continuation Path</div>
+    <div class="screen-question">Has the patient had any lapses in Wegovy therapy?</div>
+    <div class="screen-hint">NYRx defines adherence as consistent use with no gaps in fills via NYRx or any previous insurer. Check pharmacy fill history.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-cont-attempts')">
+      <div class="btn-badge green">✓</div><div class="btn-content"><div class="btn-label">No lapses — consistent fills</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-cont-lapse-amber')">
+      <div class="btn-badge amber">⚠️</div><div class="btn-content"><div class="btn-label">Yes — there have been lapses</div></div><div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
+
+<!-- CONT: LAPSE AMBER -->
+<div id="screen-cont-lapse-amber" class="screen">
+  <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Action needed before submitting.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Prescriber rationale required</div><div class="status-text">The form requires the prescriber to explain the lapse. Acceptable rationales include side effects, cost barriers, or supply issues. Undocumented lapses are a common denial reason. Confirm the rationale with the prescriber before submitting.</div></div></div>
+    <button class="answer-btn" onclick="goTo('screen-cont-attempts')">
+      <div class="btn-badge default">→</div><div class="btn-content"><div class="btn-label">Rationale confirmed — continue</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- CONT: ATTEMPTS -->
+<div id="screen-cont-attempts" class="screen">
+  <div class="screen-band">
+    <div class="continuation-badge">🔄 Continuation Path</div>
+    <div class="screen-question">Is this the patient's first or second lifetime attempt at Wegovy?</div>
+    <div class="screen-hint">NYRx limits coverage to two lifetime treatment attempts per patient — across all insurers.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-cont-cvd')">
+      <div class="btn-badge green">1</div><div class="btn-content"><div class="btn-label">First attempt</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-cont-second-warn')">
+      <div class="btn-badge amber">2</div><div class="btn-content"><div class="btn-label">Second attempt</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn red" onclick="goTo('screen-cont-third-red')">
+      <div class="btn-badge red">3+</div><div class="btn-content"><div class="btn-label">Third attempt or more</div></div><div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
+
+<!-- CONT: SECOND WARN -->
+<div id="screen-cont-second-warn" class="screen">
+  <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Final covered attempt — flag for prescriber.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">This is the patient's last covered attempt</div><div class="status-text">NYRx limits Wegovy coverage to two lifetime attempts. If this request is denied or the patient becomes non-adherent again, no further Wegovy coverage will be available through NY Medicaid. The prescriber should be aware before submitting.</div></div></div>
+    <button class="answer-btn green" onclick="goTo('screen-cont-cvd')">
+      <div class="btn-badge green">→</div><div class="btn-content"><div class="btn-label">Prescriber is aware — continue</div></div><div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
+
+<!-- CONT: THIRD RED -->
+<div id="screen-cont-third-red" class="screen">
+  <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx limits Wegovy coverage to two lifetime treatment attempts per patient. There is no path forward for Wegovy under NY Medicaid for this patient.</div></div></div>
+    <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- CONT: CVD ADHERENCE -->
+<div id="screen-cont-cvd" class="screen">
+  <div class="screen-band">
+    <div class="continuation-badge">🔄 Continuation Path</div>
+    <div class="screen-question">Is the patient currently adherent to their cardiovascular disease (CVD) therapy?</div>
+    <div class="screen-hint">Open the active medication list and verify the qualifying cardiovascular disease medication from initiation is still active.</div>
+  </div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <button class="answer-btn green" onclick="goTo('screen-cont-green')">
+      <div class="btn-badge green">✓</div><div class="btn-content"><div class="btn-label">Yes — medication is current</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="answer-btn amber" onclick="goTo('screen-cont-cvd-amber')">
+      <div class="btn-badge amber">⚠️</div><div class="btn-content"><div class="btn-label">No — discontinued or lapsed</div></div><div class="btn-arrow">›</div>
+    </button>
+  </div>
+</div>
+
+<!-- CONT: CVD AMBER -->
+<div id="screen-cont-cvd-amber" class="screen">
+  <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Prescriber rationale required for CVD therapy change.</div></div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Action needed before submitting</div><div class="status-text">The prescriber must provide a clinical rationale on the form explaining why cardiovascular disease therapy is no longer active. Confirm with prescriber before submitting.</div></div></div>
+    <button class="answer-btn" onclick="goTo('screen-cont-green')">
+      <div class="btn-badge default">→</div><div class="btn-content"><div class="btn-label">Rationale confirmed — continue</div></div><div class="btn-arrow">›</div>
+    </button>
+    <button class="restart-btn" onclick="restart()">↩ Start Over</button>
+  </div>
+</div>
+
+<!-- CONT: STEP 1 GET THE FORM -->
+<div id="screen-cont-green" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 1 of 3</div>
+    <div class="screen-question" style="color:white;">Get the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Download or email the blank NYRx Wegovy PA form.</div>
+  </div>
+  <div class="card-area">
+    <a href="https://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf" target="_blank" class="form-link-btn">📄 Download blank NYRx Wegovy PA form</a>
+    <div class="info-card">
+      <div class="info-card-title">📧 Email a link to the blank form</div>
+      <div class="info-card-body" style="margin-bottom:10px;">Send a link to the blank form to your work inbox or office email.</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <input type="email" id="email-input-cont" placeholder="your@office.com" style="flex:1; border:1.5px solid var(--gray-200); border-radius:8px; padding:10px 12px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--gray-800); outline:none;">
+        <button onclick="sendFormEmail('email-input-cont','email-confirm-cont')" style="background:var(--blue); color:white; border:none; border-radius:8px; padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap;">Send</button>
       </div>
-      <button class="restart-btn" onclick="restart()">↩ Start New PA Check</button>
-      <div class="disclaimer">NYRx criteria are subject to change. Always verify at newyork.fhsc.com before submitting.</div>
+      <div id="email-confirm-cont" style="display:none; margin-top:8px; font-size:12px; color:var(--green); font-weight:600;">✓ Email client opened</div>
     </div>
+    <button class="answer-btn green" onclick="goTo('screen-cont-complete')" style="margin-top:8px;">
+      <div class="btn-badge green">→</div><div class="btn-content"><div class="btn-label">Next — Complete the form</div></div><div class="btn-arrow">›</div>
+    </button>
   </div>
+</div>
 
-  <!-- CONTINUATION PATH -->
-
-  <!-- CONT: LAPSE -->
-  <div id="screen-cont-lapse" class="screen">
-    <div class="screen-band">
-      <div class="continuation-badge">🔄 Continuation Path</div>
-      <div class="screen-question">Has the patient had any lapses in Wegovy therapy?</div>
-      <div class="screen-hint">NYRx defines adherence as consistent use with no gaps in fills via NYRx or any previous insurer. Check pharmacy fill history.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-cont-attempts')">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">No lapses — consistent fills</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-cont-lapse-amber')">
-        <div class="btn-badge amber">⚠️</div>
-        <div class="btn-content"><div class="btn-label">Yes — there have been lapses</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
+<!-- CONT: STEP 2 COMPLETE THE FORM -->
+<div id="screen-cont-complete" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 2 of 3</div>
+    <div class="screen-question" style="color:white;">Complete the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Fill in each section using the exact field names on the form.</div>
   </div>
-
-  <!-- CONT: LAPSE AMBER -->
-  <div id="screen-cont-lapse-amber" class="screen">
-    <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Action needed before submitting.</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Prescriber rationale required</div><div class="status-text">The form requires the prescriber to explain the lapse. Acceptable rationales include side effects, cost barriers, or supply issues. Undocumented lapses are a common denial reason. Confirm the rationale with the prescriber before submitting.</div></div></div>
-      <button class="answer-btn" onclick="goTo('screen-cont-attempts')">
-        <div class="btn-badge default">→</div>
-        <div class="btn-content"><div class="btn-label">Rationale confirmed — continue</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
-  </div>
-
-  <!-- CONT: ATTEMPTS -->
-  <div id="screen-cont-attempts" class="screen">
-    <div class="screen-band">
-      <div class="continuation-badge">🔄 Continuation Path</div>
-      <div class="screen-question">Is this the patient's first or second lifetime attempt at Wegovy?</div>
-      <div class="screen-hint">NYRx limits coverage to two lifetime treatment attempts per patient — across all insurers.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-cont-cvd')">
-        <div class="btn-badge green">1</div>
-        <div class="btn-content"><div class="btn-label">First attempt</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-cont-second-warn')">
-        <div class="btn-badge amber">2</div>
-        <div class="btn-content"><div class="btn-label">Second attempt</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn red" onclick="goTo('screen-cont-third-red')">
-        <div class="btn-badge red">3+</div>
-        <div class="btn-content"><div class="btn-label">Third attempt or more</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- CONT: SECOND WARN -->
-  <div id="screen-cont-second-warn" class="screen">
-    <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Final covered attempt — flag for prescriber.</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">This is the patient's last covered attempt</div><div class="status-text">NYRx limits Wegovy coverage to two lifetime attempts. If this request is denied or the patient becomes non-adherent again, no further Wegovy coverage will be available through NY Medicaid. The prescriber should be aware before submitting.</div></div></div>
-      <button class="answer-btn green" onclick="goTo('screen-cont-cvd')">
-        <div class="btn-badge green">→</div>
-        <div class="btn-content"><div class="btn-label">Prescriber is aware — continue</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- CONT: THIRD RED -->
-  <div id="screen-cont-third-red" class="screen">
-    <div class="screen-band"><div class="step-pill">Result</div><div class="screen-question">Likely Denial</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box red"><div class="status-icon">🔴</div><div class="status-content"><div class="status-title">Do not submit this request</div><div class="status-text">NYRx limits Wegovy coverage to two lifetime treatment attempts per patient. There is no path forward for Wegovy under NY Medicaid for this patient.</div></div></div>
-      <div class="info-card"><div class="info-card-title">💊 Consider alternatives</div><div class="info-card-body">Contrave · Phentermine · Qsymia<br><br><strong>⚠️</strong> Phentermine and Qsymia are generally not appropriate for patients with hypertension.</div></div>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
-  </div>
-
-  <!-- CONT: CVD ADHERENCE -->
-  <div id="screen-cont-cvd" class="screen">
-    <div class="screen-band">
-      <div class="continuation-badge">🔄 Continuation Path</div>
-      <div class="screen-question">Is the patient currently adherent to their cardiovascular disease (CVD) therapy?</div>
-      <div class="screen-hint">Open the active medication list and verify the qualifying cardiovascular disease medication from initiation is still active. Check for recent discontinuations.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <button class="answer-btn green" onclick="goTo('screen-cont-green')">
-        <div class="btn-badge green">✓</div>
-        <div class="btn-content"><div class="btn-label">Yes — medication is current</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="answer-btn amber" onclick="goTo('screen-cont-cvd-amber')">
-        <div class="btn-badge amber">⚠️</div>
-        <div class="btn-content"><div class="btn-label">No — discontinued or lapsed</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
-  </div>
-
-  <!-- CONT: CVD AMBER -->
-  <div id="screen-cont-cvd-amber" class="screen">
-    <div class="screen-band"><div class="continuation-badge">🔄 Continuation Path</div><div class="screen-question">Prescriber rationale required for CVD therapy change.</div></div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Action needed before submitting</div><div class="status-text">The prescriber must provide a clinical rationale on the form explaining why cardiovascular disease therapy is no longer active. Acceptable rationales include medication intolerance, transition to a different agent, or a change in clinical status. Confirm with prescriber before submitting.</div></div></div>
-      <button class="answer-btn" onclick="goTo('screen-cont-green')">
-        <div class="btn-badge default">→</div>
-        <div class="btn-content"><div class="btn-label">Rationale confirmed — continue</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-      <button class="restart-btn" onclick="restart()">↩ Start Over</button>
-    </div>
-  </div>
-
-  <!-- GREEN LIGHT: CONTINUATION -->
-  <!-- CONT STEP 1 OF 3: GET THE FORM -->
-  <div id="screen-cont-green" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 1 of 3</div>
-      <div class="screen-question" style="color:white;">Get the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Download or email the blank NYRx Wegovy PA form.</div>
-    </div>
-    <div class="card-area">
-      <a href="https://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf" target="_blank" class="form-link-btn">📄 Download blank NYRx Wegovy PA form</a>
-      <div class="info-card">
-        <div class="info-card-title">📧 Email blank form</div>
-        <div class="info-card-body" style="margin-bottom:10px;">Send a link to the blank form to your work inbox or office email.</div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <input type="email" id="email-input-cont" placeholder="your@office.com" style="flex:1; border:1.5px solid var(--gray-200); border-radius:8px; padding:10px 12px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--gray-800); outline:none;">
-          <button onclick="sendFormEmail('email-input-cont')" style="background:var(--blue); color:white; border:none; border-radius:8px; padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap;">Send</button>
-        </div>
-        <div id="email-confirm-cont" style="display:none; margin-top:8px; font-size:12px; color:var(--green); font-weight:600;">✓ Email client opened</div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEMBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Last Name / First Name</span>From chart</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Medicaid ID (two letters, five numbers, one letter)</span>From Medicaid card — format: <strong>AA12345A</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Date of Birth / Sex / Height / Weight / BMI</span>From chart</div>
       </div>
-      <button class="answer-btn green" onclick="goTo('screen-cont-complete')" style="margin-top:8px;">
-        <div class="btn-badge green">→</div>
-        <div class="btn-content"><div class="btn-label">Next — Complete the form</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
     </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">PRESCRIBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="font-size:12px; color:var(--gray-800); line-height:1.6;">Name, NPI, specialty, address, phone, fax — from prescriber's record.<br><span style="color:var(--gray-400); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber's Authorized Agent:</span> Your name.</div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEDICATION AND DISPENSING INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 1</span></div>
+      <div style="font-size:12px; color:var(--gray-800);">Per Rx — Drug: <strong>Wegovy</strong> · Formulation: <strong>pen injectors</strong> · Frequency: <strong>once weekly</strong> · Quantity/Day Supply: <strong>2 mL / 4 pens · 30 day supply</strong></div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">NEW OR CONTINUATION?</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGES 1–2</span></div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Select one</span>☑ <strong>Renewal of medication therapy previously covered by NYRx</strong></div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Then select one</span>Same dose and frequency — or — New strength or frequency — or — Continuation from other/previous insurer</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Approximate date therapy initiated (MM/DD/YYYY)</span>From chart or prior PA records</div>
+      </div>
+    </div>
+    <div class="info-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA: CONTINUATION OF THERAPY</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px;">PAGE 4</span></div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">9. Has the member been adherent to Wegovy?</span><span style="font-size:11px; color:var(--gray-400); display:block; margin-bottom:4px;">Adherent = consistent use with no lapses via NYRx and/or any previous insurer.</span>☑ <strong>Yes</strong> (or provide clinical rationale if No)</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">10. Does the member remain adherent to established prescribed CVD therapy?</span>☑ <strong>Yes</strong> — provide current CVD therapy (medication name)</div>
+        <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">11. Has the member attempted to use Wegovy two or more times in their lifetime?</span>☑ <strong>No</strong> (first or second attempt) — or <strong>Yes</strong> if two or more prior attempts</div>
+      </div>
+    </div>
+    <div class="status-box blue"><div class="status-icon">📄</div><div class="status-content"><div class="status-title">Page 3 — Initiation criteria (first NYRx request only)</div><div class="status-text">If this is the first time requesting a prior authorization via NYRx — even if the patient received Wegovy under a previous insurer — you must also complete Page 3 (questions 5–8).</div></div></div>
+    <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Lifetime limit reminder</div><div class="status-text">NYRx limits Wegovy to two lifetime treatment attempts per patient. Confirm the attempt number before submitting every continuation request.</div></div></div>
+    <button class="answer-btn green" onclick="goTo('screen-cont-send')" style="margin-top:8px;">
+      <div class="btn-badge green">→</div><div class="btn-content"><div class="btn-label">Next — Submit the form</div></div><div class="btn-arrow">›</div>
+    </button>
   </div>
+</div>
 
-  <!-- CONT STEP 2 OF 3: COMPLETE -->
-  <div id="screen-cont-complete" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 2 of 3</div>
-      <div class="screen-question" style="color:white;">Complete the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Fill in each section using the exact field names on the form.</div>
-    </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-
-      <!-- MEMBER & PRESCRIBER & MEDICATION — same as initiation -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEMBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Last Name / First Name</span>From chart</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Member Medicaid ID (two letters, five numbers, one letter)</span>From Medicaid card — format: <strong>AA12345A</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Date of Birth / Sex / Height / Weight / BMI</span>From chart</div>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">PRESCRIBER INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="font-size:12px; color:var(--gray-800); line-height:1.6;">Name, NPI, specialty, address, phone, fax — from prescriber's record.<br><span style="color:var(--gray-400); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Prescriber's Authorized Agent:</span> Your name — you are submitting on the prescriber's behalf.</div>
-      </div>
-
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">MEDICATION AND DISPENSING INFORMATION</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 1</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Drug Name / Strength / Formulation / Dosing Frequency / Quantity / Day Supply</span>Per Rx — Drug: <strong>Wegovy</strong> · Formulation: <strong>pen injectors</strong> · Frequency: <strong>once weekly</strong></div>
-        </div>
-      </div>
-
-      <!-- CONTINUATION SELECTION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">NEW OR CONTINUATION?</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGES 1–2</span></div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Select one</span>☑ <strong>Renewal of medication therapy previously covered by NYRx</strong></div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Then select one</span>Same dose and frequency — or — New strength or frequency — or — Continuation of therapy from other/previous insurer</div>
-          <div style="font-size:12px; color:var(--gray-800);"><span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px;">Approximate date therapy initiated (MM/DD/YYYY)</span>From chart or prior PA records</div>
-        </div>
-      </div>
-
-      <!-- CLINICAL CRITERIA: CONTINUATION -->
-      <div class="info-card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;"><div class="info-card-title" style="font-size:14px;">CLINICAL CRITERIA: CONTINUATION OF THERAPY</div><span style="font-size:10px; font-weight:700; color:var(--gray-400); background:var(--gray-100); border-radius:6px; padding:3px 8px; letter-spacing:0.5px;">PAGE 4</span></div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">9. Has the member been adherent to Wegovy?</span>
-            <span style="font-size:11px; color:var(--gray-400); display:block; margin-bottom:4px;">Note: Adherent to Wegovy is defined as consistent use with no lapses in therapy via NYRx and/or any previous insurer.</span>
-            ☑ <strong>Yes</strong> (or provide clinical rationale if No)
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">10. Does the member remain adherent to established prescribed CVD therapy (antihypertensive, lipid-lowering agent, and anti-thrombotic agent, or platelet aggregation inhibitor)?</span>
-            ☑ <strong>Yes</strong> — provide documentation of current CVD therapy (medication name)
-          </div>
-          <div style="font-size:12px; color:var(--gray-800);">
-            <span style="color:var(--gray-400); font-weight:600; display:block; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px;">11. Has the member attempted to use Wegovy for the reduction of MACE (major adverse cardiovascular events) two or more times in their lifetime?</span>
-            ☑ <strong>No</strong> (first or second attempt) — or <strong>Yes</strong> if two or more prior attempts (see denial advisory)
-          </div>
-        </div>
-      </div>
-
-      <div class="status-box blue"><div class="status-icon">📄</div><div class="status-content"><div class="status-title">Page 3 — Initiation criteria (first NYRx request only)</div><div class="status-text">If this is the first time requesting a prior authorization via NYRx — even if the patient received Wegovy under a previous insurer — you must also complete Page 3 (Clinical Criteria: Initiation of Therapy, questions 5–8).</div></div></div>
-      <div class="status-box amber"><div class="status-icon">⚠️</div><div class="status-content"><div class="status-title">Lifetime limit reminder</div><div class="status-text">NYRx limits Wegovy to two lifetime treatment attempts per patient. Confirm the attempt number before submitting every continuation request.</div></div></div>
-
-      <button class="answer-btn green" onclick="goTo('screen-cont-send')" style="margin-top:8px;">
-        <div class="btn-badge green">→</div>
-        <div class="btn-content"><div class="btn-label">Next — Submit the form</div></div>
-        <div class="btn-arrow">›</div>
-      </button>
-    </div>
+<!-- CONT: STEP 3 SUBMIT -->
+<div id="screen-cont-send" class="screen">
+  <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
+    <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 3 of 3</div>
+    <div class="screen-question" style="color:white;">Submit the Form</div>
+    <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Choose your submission method.</div>
   </div>
-
-  <!-- CONT STEP 3 OF 3: SUBMIT -->
-  <div id="screen-cont-send" class="screen">
-    <div class="screen-band" style="background: linear-gradient(135deg, #0D7A4E 0%, #0A5C3A 100%);">
-      <div class="step-pill" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:white;">Step 3 of 3</div>
-      <div class="screen-question" style="color:white;">Submit the Form</div>
-      <div class="screen-hint" style="color:rgba(255,255,255,0.75);">Choose your submission method.</div>
+  <div class="card-area">
+    <button class="back-btn" onclick="goBack()">‹ Back</button>
+    <div class="contact-card">
+      <div class="contact-row"><div class="contact-label">Fax to</div><div class="contact-value">1-800-268-2990</div></div>
+      <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value">1-877-309-9493</div></div>
+      <div class="contact-row"><div class="contact-label">Electronic</div><div class="contact-value" style="font-size:13px;">CoverMyMeds.com</div></div>
     </div>
-    <div class="card-area">
-      <button class="back-btn" onclick="goBack()">‹ Back</button>
-      <div class="contact-card">
-        <div class="contact-row"><div class="contact-label">Fax to</div><div class="contact-value">1-800-268-2990</div></div>
-        <div class="contact-row"><div class="contact-label">Phone</div><div class="contact-value">1-877-309-9493</div></div>
-        <div class="contact-row"><div class="contact-label">Electronic</div><div class="contact-value" style="font-size:13px;">CoverMyMeds.com</div></div>
-      </div>
-      <button class="restart-btn" onclick="restart()">↩ Start New PA Check</button>
-      <div class="disclaimer">NYRx criteria are subject to change. Always verify at newyork.fhsc.com before submitting.</div>
-    </div>
+    <button class="restart-btn" onclick="restart()">↩ Start New PA Check</button>
+    <div class="disclaimer">NYRx criteria are subject to change. Always verify at newyork.fhsc.com before submitting.</div>
   </div>
+</div>
 
-</div><!-- end main-app -->
+</div><!-- end all-screens -->
 
 <script>
-  let context = {};
-  let history = [];
+  let appHistory = [];
   let patientInsurance = 'medicaid';
   let patientHasDiabetes = false;
-
-  function setInsurance(val) {
-    patientInsurance = val;
-    const ids = ['medicaid', 'dualeligible', 'employer'];
-    ids.forEach(id => {
-      const btn = document.getElementById('ins-' + id);
-      if (!btn) return;
-      if (id === val) {
-        btn.style.background = 'var(--sky)';
-        btn.style.color = 'white';
-        btn.style.border = 'none';
-      } else {
-        btn.style.background = 'rgba(255,255,255,0.1)';
-        btn.style.color = 'rgba(255,255,255,0.5)';
-        btn.style.border = '1px solid rgba(255,255,255,0.15)';
-      }
-    });
-    // Show/hide Medicaid plan detail
-    const detail = document.getElementById('ins-medicaid-detail');
-    if (detail) detail.style.display = val === 'medicaid' ? 'block' : 'none';
-    // Show/hide coming soon message
-    const comingSoon = document.getElementById('ins-coming-soon');
-    if (comingSoon) comingSoon.style.display = val !== 'medicaid' ? 'block' : 'none';
-    // Grey out Start button for non-medicaid
-    const startBtn = document.querySelector('.start-btn');
-    if (startBtn) {
-      startBtn.style.opacity = val === 'medicaid' ? '1' : '0.35';
-      startBtn.style.pointerEvents = val === 'medicaid' ? 'auto' : 'none';
-    }
-    // Show/hide diabetes toggle (only relevant for Medicaid)
-    const dmRow = document.getElementById('dm-row');
-    if (dmRow) dmRow.style.display = val === 'medicaid' ? 'flex' : 'none';
-  }
+  let cvdContext = {};
 
   const screenProgress = {
     'screen-new-or-cont': [1,6], 'screen-bmi': [2,6],
     'screen-cvd-strict': [3,6], 'screen-cvd-standard': [3,6],
     'screen-lifestyle': [4,6], 'screen-lifestyle2': [5,6],
     'screen-green-submit': [6,6], 'screen-green-complete': [6,6], 'screen-green-send': [6,6],
-    'screen-cont-lapse': [1,5], 'screen-cont-attempts': [2,5],
-    'screen-cont-second-warn': [2,5], 'screen-cont-cvd': [3,5],
+    'screen-red-diabetes': [1,6],
+    'screen-cont-lapse': [1,5], 'screen-cont-lapse-amber': [1,5],
+    'screen-cont-attempts': [2,5], 'screen-cont-second-warn': [2,5],
+    'screen-cont-cvd': [3,5], 'screen-cont-cvd-amber': [3,5],
     'screen-cont-green': [5,5], 'screen-cont-complete': [5,5], 'screen-cont-send': [5,5],
   };
 
-  function showHeader() {
-    document.getElementById('app-header').style.display = 'block';
-    document.getElementById('main-app').style.display = 'block';
-  }
-
-  function setProgress(step, total) {
-    document.getElementById('progress-label').textContent = `Step ${step} of ${total}`;
-    document.getElementById('progress-fill').style.width = `${(step/total)*100}%`;
-  }
-
-  function getCurrentScreenId() {
-    const active = document.querySelector('.screen.active');
-    return active ? active.id : null;
-  }
-
   function goTo(id) {
-    const current = getCurrentScreenId();
-    if (current && current !== id) history.push(current);
-    showHeader();
+    const current = document.querySelector('.screen.active');
+    if (current && current.id !== id) appHistory.push(current.id);
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
-    if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
-    if (screenProgress[id]) setProgress(...screenProgress[id]);
+    if (!target) return;
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+    // Show/hide header
+    const isStart = id === 'screen-start';
+    document.getElementById('app-header').style.display = isStart ? 'none' : 'block';
+    // Progress bar
+    if (screenProgress[id]) {
+      const [step, total] = screenProgress[id];
+      document.getElementById('progress-label').textContent = 'Step ' + step + ' of ' + total;
+      document.getElementById('progress-fill').style.width = ((step/total)*100) + '%';
+    }
   }
 
   function goBack() {
-    if (history.length === 0) return;
-    const prev = history.pop();
+    if (appHistory.length === 0) return;
+    const prev = appHistory.pop();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(prev);
-    if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
-    if (screenProgress[prev]) setProgress(...screenProgress[prev]);
-  }
-
-  function setDiabetes(val) {
-    patientHasDiabetes = val;
-    const yesBtn = document.getElementById('dm-yes');
-    const noBtn = document.getElementById('dm-no');
-    if (val) {
-      yesBtn.style.background = '#B91C1C'; yesBtn.style.color = 'white'; yesBtn.style.border = 'none';
-      noBtn.style.background = 'rgba(255,255,255,0.1)'; noBtn.style.color = 'rgba(255,255,255,0.5)'; noBtn.style.border = '1px solid rgba(255,255,255,0.15)';
-    } else {
-      noBtn.style.background = 'var(--sky)'; noBtn.style.color = 'white'; noBtn.style.border = 'none';
-      yesBtn.style.background = 'rgba(255,255,255,0.1)'; yesBtn.style.color = 'rgba(255,255,255,0.5)'; yesBtn.style.border = '1px solid rgba(255,255,255,0.15)';
+    if (!target) return;
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+    const isStart = prev === 'screen-start';
+    document.getElementById('app-header').style.display = isStart ? 'none' : 'block';
+    if (screenProgress[prev]) {
+      const [step, total] = screenProgress[prev];
+      document.getElementById('progress-label').textContent = 'Step ' + step + ' of ' + total;
+      document.getElementById('progress-fill').style.width = ((step/total)*100) + '%';
     }
   }
 
   function handleStart() {
     if (patientInsurance !== 'medicaid') return;
-    if (patientHasDiabetes) { showHeader(); goTo('screen-red-diabetes'); }
-    else { goTo('screen-new-or-cont'); }
+    if (patientHasDiabetes) goTo('screen-red-diabetes');
+    else goTo('screen-new-or-cont');
   }
 
-  function setContext(key, val) { context[key] = val; }
+  function setInsurance(val) {
+    patientInsurance = val;
+    ['medicaid','dualeligible','employer'].forEach(id => {
+      const btn = document.getElementById('ins-' + id);
+      if (!btn) return;
+      const active = id === val;
+      btn.style.background = active ? 'var(--sky)' : 'rgba(255,255,255,0.1)';
+      btn.style.color = active ? 'white' : 'rgba(255,255,255,0.5)';
+      btn.style.border = active ? 'none' : '1px solid rgba(255,255,255,0.15)';
+    });
+    document.getElementById('ins-medicaid-detail').style.display = val === 'medicaid' ? 'block' : 'none';
+    document.getElementById('ins-coming-soon').style.display = val !== 'medicaid' ? 'block' : 'none';
+    document.getElementById('dm-row').style.display = val === 'medicaid' ? 'flex' : 'none';
+    const startBtn = document.querySelector('.start-btn');
+    startBtn.style.opacity = val === 'medicaid' ? '1' : '0.35';
+    startBtn.style.pointerEvents = val === 'medicaid' ? 'auto' : 'none';
+  }
+
+  function setDiabetes(val) {
+    patientHasDiabetes = val;
+    const yes = document.getElementById('dm-yes');
+    const no = document.getElementById('dm-no');
+    if (val) {
+      yes.style.background = '#B91C1C'; yes.style.color = 'white'; yes.style.border = 'none';
+      no.style.background = 'rgba(255,255,255,0.1)'; no.style.color = 'rgba(255,255,255,0.5)'; no.style.border = '1px solid rgba(255,255,255,0.15)';
+    } else {
+      no.style.background = 'var(--sky)'; no.style.color = 'white'; no.style.border = 'none';
+      yes.style.background = 'rgba(255,255,255,0.1)'; yes.style.color = 'rgba(255,255,255,0.5)'; yes.style.border = '1px solid rgba(255,255,255,0.15)';
+    }
+  }
+
+  function setContext(key, val) { cvdContext[key] = val; }
 
   function restart() {
-    context = {}; history = [];
+    appHistory = [];
     patientHasDiabetes = false; setDiabetes(false);
-    patientInsurance = 'medicaid'; setInsurance('medicaid'); const sb = document.querySelector('.start-btn'); if(sb){sb.style.opacity='1';sb.style.pointerEvents='auto';}
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-start').classList.add('active');
-    document.getElementById('app-header').style.display = 'none';
-    document.getElementById('main-app').style.display = 'none';
-    window.scrollTo(0, 0);
+    patientInsurance = 'medicaid'; setInsurance('medicaid');
+    cvdContext = {};
+    goTo('screen-start');
   }
 
   function expandTable(id) {
@@ -1326,20 +957,18 @@
     trigger.classList.toggle('open');
   }
 
-  function sendFormEmail(inputId) {
+  function sendFormEmail(inputId, confirmId) {
     const input = document.getElementById(inputId);
-    const confirmId = inputId.replace('email-input', 'email-confirm');
     const confirm = document.getElementById(confirmId);
     const email = input.value.trim();
     if (!email || !email.includes('@')) {
       input.style.borderColor = 'var(--red)';
-      input.placeholder = 'Please enter a valid email';
-      setTimeout(() => { input.style.borderColor = 'var(--gray-200)'; input.placeholder = 'your@office.com'; }, 2000);
+      setTimeout(() => { input.style.borderColor = 'var(--gray-200)'; }, 2000);
       return;
     }
     const subject = encodeURIComponent('NYRx Wegovy Prior Authorization Form');
-    const body = encodeURIComponent('NYRx Wegovy Prior Authorization Request Form\n\nDownload the form here:\nhttps://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf\n\nFax completed form to: 1-800-268-2990\nPhone: 1-877-309-9493\nOr submit electronically via CoverMyMeds at covermymeds.com');
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    const body = encodeURIComponent('NYRx Wegovy Prior Authorization Request Form\n\nDownload the blank form here:\nhttps://newyork.fhsc.com/downloads/providers/NYRx_PDP_PA_Worksheet_Prescribers_Wegovy.pdf\n\nFax completed form to: 1-800-268-2990\nPhone: 1-877-309-9493\nOr submit electronically via CoverMyMeds at covermymeds.com');
+    window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
     if (confirm) { confirm.style.display = 'block'; setTimeout(() => { confirm.style.display = 'none'; }, 4000); }
     input.value = '';
   }
